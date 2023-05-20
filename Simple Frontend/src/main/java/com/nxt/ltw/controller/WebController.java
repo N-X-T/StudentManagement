@@ -276,19 +276,48 @@ public class WebController {
         return "/user/tienichkhac/gioithieu";
     }
     @GetMapping("/account/center")
-    String accountcenter(Model model){
-        
+    String accountcenter(@CookieValue(name = "JSESSIONID") String JSESSIONID,Model model){
+        HttpHeaders headers = new HttpHeaders();
+        headers.add(HttpHeaders.COOKIE,"JSESSIONID="+JSESSIONID);
+        String response = rest.exchange("http://localhost:8080/api/account/center",HttpMethod.GET, new HttpEntity(headers), String.class).getBody();
+        JSONObject dataJson = new JSONObject(response).getJSONObject("data");
+        model.addAttribute("hoten",dataJson.getString("hoten"));
+        model.addAttribute("masv",dataJson.getString("masv"));
+        model.addAttribute("ngaysinh",dataJson.getString("ngaysinh"));
+        model.addAttribute("gioitinh",dataJson.getBoolean("gioitinh"));
+        model.addAttribute("sodienthoai",dataJson.getString("sodienthoai"));
+        model.addAttribute("email",dataJson.getString("email"));
         return "/user/accountcenter";
     }
     @GetMapping("/account/center/edit")
-    String accountcentereditForm(Model model){
-        
+    String accountcentereditForm(@CookieValue(name = "JSESSIONID") String JSESSIONID,Model model){
+        HttpHeaders headers = new HttpHeaders();
+        headers.add(HttpHeaders.COOKIE,"JSESSIONID="+JSESSIONID);
+        String response = rest.exchange("http://localhost:8080/api/account/center",HttpMethod.GET, new HttpEntity(headers), String.class).getBody();
+        JSONObject dataJson = new JSONObject(response).getJSONObject("data");
+        model.addAttribute("hoten",dataJson.getString("hoten"));
+        model.addAttribute("masv",dataJson.getString("masv"));
+        model.addAttribute("ngaysinh",dataJson.getString("ngaysinh"));
+        model.addAttribute("gioitinh",dataJson.getBoolean("gioitinh"));
+        model.addAttribute("sodienthoai",dataJson.getString("sodienthoai"));
+        model.addAttribute("email",dataJson.getString("email"));
         return "/user/accountcenter-edit";
     }
     @PostMapping("/account/center/edit")
-    String accountcenteredit(@ModelAttribute("update-user") CustomUserDetail customUserDetail){
+    String accountcenteredit(CustomUserDetail customUserDetail,@CookieValue(name = "JSESSIONID") String JSESSIONID,Model model){
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+        headers.add(HttpHeaders.COOKIE,"JSESSIONID="+JSESSIONID);
+        MultiValueMap<String, String> formData = new LinkedMultiValueMap<>();
+        formData.add("email", customUserDetail.getEmail());
+        formData.add("sodienthoai", customUserDetail.getSodienthoai());
+        formData.add("ngaysinh", customUserDetail.getNgaysinh());
+        formData.add("gioitinh", String.valueOf(customUserDetail.isGioitinh()));
+        HttpEntity<MultiValueMap<String, String>> requestEntity = new HttpEntity<>(formData, headers);
+        ResponseEntity<ResponseObject> response = rest.postForEntity("http://localhost:8080/api/account/center/edit", requestEntity, ResponseObject.class);
         return "redirect:/account/center";
     }
+
     @GetMapping("/danhsachnhomlop")
     String danhsachnhomlop(Model model){
         

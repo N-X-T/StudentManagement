@@ -115,7 +115,7 @@ td{
             </ul>
         </li>
         <li>
-            <a th:text="${users.hoten}"></a>
+            <a th:text="${hoten}"></a>
             <ul class="sub-menu">
                 <li><a href="/account/center">Trang cá nhân</a></li>
                 <li><a href="/logout">Đăng xuất</a></li>
@@ -128,15 +128,15 @@ td{
     <a href='/account/center/edit' style='font-size:24px' class='far'>&#xf044;</a>
     <table>
         <tbody>
-        <tr><td>Họ tên:</td><td th:text="${users.hoten}"></td><tr>
-        <tr><td>Mã sinh viên:</td><td th:text="${users.masv}"></td></tr>
-        <tr><td>Ngày sinh:</td><td th:text="${users.ngaysinh}"></td></tr>
+        <tr><td>Họ tên:</td><td th:text="${hoten}"></td><tr>
+        <tr><td>Mã sinh viên:</td><td th:text="${masv}"></td></tr>
+        <tr><td>Ngày sinh:</td><td th:text="${ngaysinh}"></td></tr>
         <tr><td>Giới tính:</td>
-            <td th:if="${users.gioitinh}">Nam</td>
-            <td th:unless="${users.gioitinh}">Nữ</td>
+            <td th:if="${gioitinh}">Nam</td>
+            <td th:unless="${gioitinh}">Nữ</td>
         </tr>
-        <tr><td>Số điện thoại:</td><td th:text="${users.sodienthoai}"></td></tr>
-        <tr><td>Email:</td><td th:text="${users.email}"></td></tr>
+        <tr><td>Số điện thoại:</td><td th:text="${sodienthoai}"></td></tr>
+        <tr><td>Email:</td><td th:text="${email}"></td></tr>
         <tbody>
     </table>
 </div>

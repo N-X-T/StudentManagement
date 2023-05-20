@@ -157,7 +157,7 @@ button{
             </ul>
         </li>
         <li>
-            <a th:text="${users.hoten}"></a>
+            <a th:text="${hoten}"></a>
             <ul class="sub-menu">
                 <li><a href="/account/center">Trang cá nhân</a></li>
                 <li><a href="/logout">Đăng xuất</a></li>
@@ -168,9 +168,9 @@ button{
 <br>
 <div class="Information">
     <form class="form" action="/account/center/edit" method="post" modelAttribute="update-user">
-        <label>Email:</label><input type="email" name="email" th:value="${users.email}" required><br>
-        <label>Số điện thoại:</label><input type="text" name="sodienthoai" th:value="${users.sodienthoai}" required><br>
-        <label>Ngày sinh:</label><input type="date" name="ngaysinh" th:value="${users.ngaysinh}" required><br>
+        <label>Email:</label><input type="email" name="email" th:value="${email}" required><br>
+        <label>Số điện thoại:</label><input type="text" name="sodienthoai" th:value="${sodienthoai}" required><br>
+        <label>Ngày sinh:</label><input type="date" name="ngaysinh" th:value="${ngaysinh}" required><br>
         <label>Giới tính:</label><select name="gioitinh">
         <option value="1">Nam</option>
         <option value="0">Nữ</option>

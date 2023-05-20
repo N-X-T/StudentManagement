@@ -12,14 +12,8 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CustomUserDetail{
-    private long id;
-    private String hoten;
     private String email;
     private String sodienthoai;
-    private String masv;
     private String ngaysinh;
     private boolean gioitinh;
-    private String lophanhchinh;
-    private String username;
-    private String password;
 }
