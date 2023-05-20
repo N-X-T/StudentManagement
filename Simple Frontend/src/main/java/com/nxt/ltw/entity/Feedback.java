@@ -10,9 +10,6 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Feedback {
-    private long id;
     private String phongban;
     private String noidung;
-    private String noidungphanhoi;
-    private LocalDateTime ngaytao;
 }

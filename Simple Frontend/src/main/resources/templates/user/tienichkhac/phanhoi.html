@@ -237,7 +237,7 @@ th {
             </ul>
         </li>
         <li>
-            <a th:text="${user.hoten}"></a>
+            <a th:text="${hoten}"></a>
             <ul class="sub-menu">
                 <li><a href="/account/center">Trang cá nhân</a></li>
                 <li><a href="/logout">Đăng xuất</a></li>
@@ -268,15 +268,15 @@ th {
                 <tbody>
                 <tr class="row100 body" th:each="data,state : ${feedbacks}">
                     <td class="cell100 column1" th:text="${state.count}"></td>
-                    <td class="cell100 column2" th:text="${data.phongban}"></td>
-                    <td class="cell100 column3" th:text="${data.noidung}"></td>
-                    <th:block th:if="${data.noidungphanhoi}">
-                        <td class="cell100 column4" th:text="${data.noidungphanhoi}"></td>
+                    <td class="cell100 column2" th:text="${data.getString('phongban')}"></td>
+                    <td class="cell100 column3" th:text="${data.getString('noidung')}"></td>
+                    <th:block th:if="${data.getString('noidungphanhoi')}">
+                        <td class="cell100 column4" th:text="${data.getString('noidungphanhoi')}"></td>
                     </th:block>
-                    <th:block th:unless="${data.noidungphanhoi}">
+                    <th:block th:unless="${data.getString('noidungphanhoi')}">
                         <td class="cell100 column4">Chưa phản hồi!</td>
                     </th:block>
-                    <td class="cell100 column5" th:text="${data.ngaytao}"></td>
+                    <td class="cell100 column5" th:text="${data.getString('ngaytao')}"></td>
                 </tr>
                 </tbody>
             </table>

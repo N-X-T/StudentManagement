@@ -110,68 +110,163 @@ public class WebController {
         return "/user/dashboard";
     }
     @GetMapping("/tintuc")
-    String tintuc(Model model){
+    String tintuc(@CookieValue(name = "JSESSIONID") String JSESSIONID,Model model){
+        HttpHeaders headers = new HttpHeaders();
+        headers.add(HttpHeaders.COOKIE,"JSESSIONID="+JSESSIONID);
+        String response = rest.exchange("http://localhost:8080/api/tintuc",HttpMethod.GET, new HttpEntity(headers), String.class).getBody();
+        JSONObject dataJson = new JSONObject(response);
+        model.addAttribute("hoten",dataJson.getString("data"));
         return "/user/tintuc";
     }
-    @GetMapping("/hoctap/tientrinh")
-    String tientrinh(Model model){
-        return "/user/hoctap/tientrinh";
-    }
     @GetMapping("/hoctap/loptinchi")
-    String loptinchi(@RequestParam(required = false) String kihoc,Model model){
+    String loptinchi(@RequestParam(required = false) String kihoc, @CookieValue(name = "JSESSIONID") String JSESSIONID,Model model){
+        HttpHeaders headers = new HttpHeaders();
+        headers.add(HttpHeaders.COOKIE,"JSESSIONID="+JSESSIONID);
+        String url = "http://localhost:8080/api/hoctap/loptinchi";
+        if(kihoc != null)  url+="?kihoc="+kihoc;
+        String response = rest.exchange(url,HttpMethod.GET, new HttpEntity(headers), String.class).getBody();
+        JSONObject dataJson = new JSONObject(response).getJSONObject("data");
+
+        model.addAttribute("hoten",dataJson.getString("hoten"));
+        model.addAttribute("kihoc",dataJson.getInt("kihoc"));
+        JSONArray loptinchi = new JSONArray(dataJson.getJSONArray("loptinchi").toString().replaceAll("null","\"\""));
+        model.addAttribute("loptinchi",loptinchi);
         return "/user/hoctap/loptinchi";
     }
     @GetMapping("/hoctap/loptinchi/{nhommonhoc}")
-    String loptinchiInfo(@PathVariable String nhommonhoc, Model model){
+    String loptinchiInfo(@PathVariable String nhommonhoc, @CookieValue(name = "JSESSIONID") String JSESSIONID,Model model){
+        HttpHeaders headers = new HttpHeaders();
+        headers.add(HttpHeaders.COOKIE,"JSESSIONID="+JSESSIONID);
+        String url = "http://localhost:8080/api/hoctap/loptinchi/"+nhommonhoc;
+        String response = rest.exchange(url,HttpMethod.GET, new HttpEntity(headers), String.class).getBody();
+        JSONObject dataJson = new JSONObject(response).getJSONObject("data");
+
+        model.addAttribute("hoten",dataJson.getString("hoten"));
+        model.addAttribute("nhommonhoc",dataJson.getString("nhommonhoc"));
+        JSONArray loptinchiInfo = new JSONArray(dataJson.getJSONArray("loptinchiinfo").toString().replaceAll("null","\"\""));
+        model.addAttribute("loptinchiInfo",loptinchiInfo);
+
         return "/user/hoctap/loptinchiInfo";
     }
     @GetMapping("/hoctap/lophanhchinh")
-    String lophanhchinh(Model model){
+    String lophanhchinh( @CookieValue(name = "JSESSIONID") String JSESSIONID,Model model){
+        HttpHeaders headers = new HttpHeaders();
+        headers.add(HttpHeaders.COOKIE,"JSESSIONID="+JSESSIONID);
+        String response = rest.exchange("http://localhost:8080/api/hoctap/lophanhchinh",HttpMethod.GET, new HttpEntity(headers), String.class).getBody();
+        JSONObject dataJson = new JSONObject(response).getJSONObject("data");
+
+        model.addAttribute("hoten",dataJson.getString("hoten"));
+        model.addAttribute("malophanhchinh",dataJson.getString("malophanhchinh"));
+        JSONArray lophanhchinh = new JSONArray(dataJson.getJSONArray("lophanhchinh").toString().replaceAll("null","\"\""));
+        model.addAttribute("lophanhchinh",lophanhchinh);
+
         return "/user/hoctap/lophanhchinh";
     }
     @GetMapping("/hoctap/gochoctap")
-    String gochoctap(Model model){
+    String gochoctap(@CookieValue(name = "JSESSIONID") String JSESSIONID,Model model){
+        HttpHeaders headers = new HttpHeaders();
+        headers.add(HttpHeaders.COOKIE,"JSESSIONID="+JSESSIONID);
+        String response = rest.exchange("http://localhost:8080/api/hoctap/gochoctap",HttpMethod.GET, new HttpEntity(headers), String.class).getBody();
+        JSONObject dataJson = new JSONObject(response).getJSONObject("data");
+
+        model.addAttribute("hoten",dataJson.getString("hoten"));
+        JSONArray gochoctap = new JSONArray(dataJson.getJSONArray("gochoctap").toString().replaceAll("null","\"\""));
+        model.addAttribute("gochoctap",gochoctap);
         return "/user/hoctap/gochoctap";
     }
     @GetMapping("/dichvumotcuasv")
-    String dichvumotcua(Model model){
+    String dichvumotcua(@CookieValue(name = "JSESSIONID") String JSESSIONID,Model model){
+        HttpHeaders headers = new HttpHeaders();
+        headers.add(HttpHeaders.COOKIE,"JSESSIONID="+JSESSIONID);
+        String response = rest.exchange("http://localhost:8080/api/dichvumotcuasv",HttpMethod.GET, new HttpEntity(headers), String.class).getBody();
+        JSONObject dataJson = new JSONObject(response);
+        model.addAttribute("hoten",dataJson.getString("data"));
         return "/user/dichvumotcuasv";
     }
     @GetMapping("/congnosinhvien")
-    String congnosinhvien(Model model){
+    String congnosinhvien(@CookieValue(name = "JSESSIONID") String JSESSIONID,Model model){
+        HttpHeaders headers = new HttpHeaders();
+        headers.add(HttpHeaders.COOKIE,"JSESSIONID="+JSESSIONID);
+        String response = rest.exchange("http://localhost:8080/api/congnosinhvien",HttpMethod.GET, new HttpEntity(headers), String.class).getBody();
+        JSONObject dataJson = new JSONObject(response);
+        model.addAttribute("hoten",dataJson.getString("data"));
         return "/user/congnosinhvien";
     }
     @GetMapping("/quanlythuviensinhvien/quanlyluanansinhvien")
-    String quanlyluanansinhvien(Model model){
+    String quanlyluanansinhvien(@CookieValue(name = "JSESSIONID") String JSESSIONID,Model model){
+        HttpHeaders headers = new HttpHeaders();
+        headers.add(HttpHeaders.COOKIE,"JSESSIONID="+JSESSIONID);
+        String response = rest.exchange("http://localhost:8080/api/quanlythuviensinhvien/quanlyluanansinhvien",HttpMethod.GET, new HttpEntity(headers), String.class).getBody();
+        JSONObject dataJson = new JSONObject(response);
+        model.addAttribute("hoten",dataJson.getString("data"));
         return "/user/quanlythuviensinhvien/quanlyluanansinhvien";
     }
     @GetMapping("/quanlythuviensinhvien/quanlyluanvansinhvien")
-    String quanlyluanvansinhvien(Model model){
+    String quanlyluanvansinhvien(@CookieValue(name = "JSESSIONID") String JSESSIONID,Model model){
+        HttpHeaders headers = new HttpHeaders();
+        headers.add(HttpHeaders.COOKIE,"JSESSIONID="+JSESSIONID);
+        String response = rest.exchange("http://localhost:8080/api/quanlythuviensinhvien/quanlyluanvansinhvien",HttpMethod.GET, new HttpEntity(headers), String.class).getBody();
+        JSONObject dataJson = new JSONObject(response);
+        model.addAttribute("hoten",dataJson.getString("data"));
         return "/user/quanlythuviensinhvien/quanlyluanvansinhvien";
     }
     @GetMapping("/quanlythuviensinhvien/quanlykhoaluansinhvien")
-    String quanlykhoaluansinhvien(Model model){
+    String quanlykhoaluansinhvien(@CookieValue(name = "JSESSIONID") String JSESSIONID,Model model){
+        HttpHeaders headers = new HttpHeaders();
+        headers.add(HttpHeaders.COOKIE,"JSESSIONID="+JSESSIONID);
+        String response = rest.exchange("http://localhost:8080/api/quanlythuviensinhvien/quanlykhoaluansinhvien",HttpMethod.GET, new HttpEntity(headers), String.class).getBody();
+        JSONObject dataJson = new JSONObject(response);
+        model.addAttribute("hoten",dataJson.getString("data"));
         return "/user/quanlythuviensinhvien/quanlykhoaluansinhvien";
     }
     @GetMapping("/tienichkhac/phanhoi")
-    String phanhoi(Model model){
+    String phanhoi(@CookieValue(name = "JSESSIONID") String JSESSIONID,Model model){
+        HttpHeaders headers = new HttpHeaders();
+        headers.add(HttpHeaders.COOKIE,"JSESSIONID="+JSESSIONID);
+        String response = rest.exchange("http://localhost:8080/api/tienichkhac/phanhoi",HttpMethod.GET, new HttpEntity(headers), String.class).getBody();
+        JSONObject dataJson = new JSONObject(response).getJSONObject("data");
+
+        model.addAttribute("hoten",dataJson.getString("hoten"));
+        JSONArray feedbacks = new JSONArray(dataJson.getJSONArray("feedback").toString().replaceAll("null","\"\""));
+        model.addAttribute("feedbacks",feedbacks);
         return "/user/tienichkhac/phanhoi";
     }
     @PostMapping("/tienichkhac/phanhoi")
-    String PostPhanhoi(@ModelAttribute("feedback") Feedback feedback, Model model){
+    String PostPhanhoi(Feedback feedback, @CookieValue(name = "JSESSIONID") String JSESSIONID,Model model){
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+        MultiValueMap<String, String> formData = new LinkedMultiValueMap<>();
+        formData.add("noidung", feedback.getNoidung());
+        formData.add("phongban", feedback.getPhongban());
+        HttpEntity<MultiValueMap<String, String>> requestEntity = new HttpEntity<>(formData, headers);
+        rest.exchange("http://localhost:8080/api/tienichkhac/phanhoi",HttpMethod.POST, requestEntity, String.class);
         return "/user/tienichkhac/phanhoi";
     }
     @GetMapping("/tienichkhac/vanbanhuongdan")
-    String vanbanhuongdan(Model model){
+    String vanbanhuongdan(@CookieValue(name = "JSESSIONID") String JSESSIONID,Model model){
+        HttpHeaders headers = new HttpHeaders();
+        headers.add(HttpHeaders.COOKIE,"JSESSIONID="+JSESSIONID);
+        String response = rest.exchange("http://localhost:8080/api/tienichkhac/vanbanhuongdan",HttpMethod.GET, new HttpEntity(headers), String.class).getBody();
+        JSONObject dataJson = new JSONObject(response);
+        model.addAttribute("hoten",dataJson.getString("data"));
         return "/user/tienichkhac/vanbanhuongdan";
     }
     @GetMapping("/tienichkhac/khaosat")
-    String khaosat(Model model){
+    String khaosat(@CookieValue(name = "JSESSIONID") String JSESSIONID,Model model){
+        HttpHeaders headers = new HttpHeaders();
+        headers.add(HttpHeaders.COOKIE,"JSESSIONID="+JSESSIONID);
+        String response = rest.exchange("http://localhost:8080/api/tienichkhac/khaosat",HttpMethod.GET, new HttpEntity(headers), String.class).getBody();
+        JSONObject dataJson = new JSONObject(response);
+        model.addAttribute("hoten",dataJson.getString("data"));
         return "/user/tienichkhac/khaosat";
     }
     @GetMapping("/tienichkhac/khaibaosuckhoe")
-    String khaibaosuckhoe(Model model){
-        
+    String khaibaosuckhoe(@CookieValue(name = "JSESSIONID") String JSESSIONID,Model model){
+        HttpHeaders headers = new HttpHeaders();
+        headers.add(HttpHeaders.COOKIE,"JSESSIONID="+JSESSIONID);
+        String response = rest.exchange("http://localhost:8080/api/tienichkhac/khaibaosuckhoe",HttpMethod.GET, new HttpEntity(headers), String.class).getBody();
+        JSONObject dataJson = new JSONObject(response);
+        model.addAttribute("hoten",dataJson.getString("data"));
         return "/user/tienichkhac/khaibaosuckhoe";
     }
     @GetMapping("/tienichkhac/gioithieu")

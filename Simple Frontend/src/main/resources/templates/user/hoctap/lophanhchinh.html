@@ -84,7 +84,7 @@ body{
             </ul>
         </li>
         <li>
-            <a th:text="${user.hoten}"></a>
+            <a th:text="${hoten}"></a>
             <ul class="sub-menu">
                 <li><a href="/account/center">Trang cá nhân</a></li>
                 <li><a href="/logout">Đăng xuất</a></li>
@@ -92,8 +92,8 @@ body{
         </li>
     </ul>
 </div>
-<div class="ClassName" th:text="${'Lớp hành chính '+user.lophanhchinh}"></div>
-<div class="ClassDecriptsion">Sĩ số: <b th:text="${lophanhchinh.size()+' sinh viên'}"></b></div>
+<div class="ClassName" th:text="${'Lớp hành chính '+malophanhchinh}"></div>
+<div class="ClassDecriptsion">Sĩ số: <b th:text="${lophanhchinh.toList().size()+' sinh viên'}"></b></div>
 <div class="ListDecriptsion">Danh sách sinh viên</div>
 <div class="table100 ver2 m-b-110">
     <div class="table100-head">
@@ -114,10 +114,10 @@ body{
             <tbody>
             <tr class="row100 body" th:each="data,state : ${lophanhchinh}">
                 <td class="cell100 column1" th:text="${state.count}"></td>
-                <td class="cell100 column2" th:text="${data.hoten}"></td>
-                <td class="cell100 column3" th:text="${data.masv}"></td>
-                <td class="cell100 column4" th:text="${data.email}"></td>
-                <td class="cell100 column5" th:text="${data.gioitinh}?'Nam':'Nữ'"></td>
+                <td class="cell100 column2" th:text="${data.getString('hoten')}"></td>
+                <td class="cell100 column3" th:text="${data.getString('masv')}"></td>
+                <td class="cell100 column4" th:text="${data.getString('email')}"></td>
+                <td class="cell100 column5" th:text="${data.getBoolean('gioitinh')}?'Nam':'Nữ'"></td>
             </tr>
             </tbody>
         </table>

@@ -84,7 +84,7 @@ body{
             </ul>
         </li>
         <li>
-            <a th:text="${user.hoten}"></a>
+            <a th:text="${hoten}"></a>
             <ul class="sub-menu">
                 <li><a href="/account/center">Trang cá nhân</a></li>
                 <li><a href="/logout">Đăng xuất</a></li>
@@ -113,42 +113,42 @@ body{
             <tbody>
             <tr class="row100 body" th:each="data,state : ${gochoctap}">
                 <td class="cell100 column1" th:text="${state.count}"></td>
-                <td class="cell100 column2" th:text="${data.monhoc.tenmonhoc}"></td>
-                <td class="cell100 column3" th:text="${data.monhoc.sotinchi}"></td>
-                <td class="cell100 column4" th:text="${data.diem_tong_ket}"></td>
-                <th:block th:if="${9<=data.diem_tong_ket and data.diem_tong_ket<=10}">
+                <td class="cell100 column2" th:text="${data.getString('tenmonhoc')}"></td>
+                <td class="cell100 column3" th:text="${data.getInt('sotinchi')}"></td>
+                <td class="cell100 column4" th:text="${data.getDouble('diem_tong_ket')}"></td>
+                <th:block th:if="${9<=data.getDouble('diem_tong_ket') and data.getDouble('diem_tong_ket')<=10}">
                     <td class="cell100 column5">4.0</td>
                     <td class="cell100 column6">A+</td>
                 </th:block>
-                <th:block th:if="${8.5<=data.diem_tong_ket and data.diem_tong_ket<9}">
+                <th:block th:if="${8.5<=data.getDouble('diem_tong_ket') and data.getDouble('diem_tong_ket')<9}">
                     <td class="cell100 column5">3.7</td>
                     <td class="cell100 column6">A</td>
                 </th:block>
-                <th:block th:if="${8<=data.diem_tong_ket and data.diem_tong_ket<8.5}">
+                <th:block th:if="${8<=data.getDouble('diem_tong_ket') and data.getDouble('diem_tong_ket')<8.5}">
                     <td class="cell100 column5">3.5</td>
                     <td class="cell100 column6">B+</td>
                 </th:block>
-                <th:block th:if="${7<=data.diem_tong_ket and data.diem_tong_ket<8}">
+                <th:block th:if="${7<=data.getDouble('diem_tong_ket') and data.getDouble('diem_tong_ket')<8}">
                     <td class="cell100 column5" >3.0</td>
                     <td class="cell100 column6" >B</td>
                 </th:block>
-                <th:block th:if="${6.5<=data.diem_tong_ket and data.diem_tong_ket<7}">
+                <th:block th:if="${6.5<=data.getDouble('diem_tong_ket') and data.getDouble('diem_tong_ket')<7}">
                     <td class="cell100 column5" >2.5</td>
                     <td class="cell100 column6" >C+</td>
                 </th:block>
-                <th:block th:if="${5.5<=data.diem_tong_ket and data.diem_tong_ket<6.5}">
+                <th:block th:if="${5.5<=data.getDouble('diem_tong_ket') and data.getDouble('diem_tong_ket')<6.5}">
                     <td class="cell100 column5" >2.0</td>
                     <td class="cell100 column6" >C</td>
                 </th:block>
-                <th:block th:if="${5<=data.diem_tong_ket and data.diem_tong_ket<5.5}">
+                <th:block th:if="${5<=data.getDouble('diem_tong_ket') and data.getDouble('diem_tong_ket')<5.5}">
                     <td class="cell100 column5" >1.5</td>
                     <td class="cell100 column6" >D+</td>
                 </th:block>
-                <th:block th:if="${4<=data.diem_tong_ket and data.diem_tong_ket<5}">
+                <th:block th:if="${4<=data.getDouble('diem_tong_ket') and data.getDouble('diem_tong_ket')<5}">
                     <td class="cell100 column5" >1.0</td>
                     <td class="cell100 column6" >D</td>
                 </th:block>
-                <th:block th:if="${0<=data.diem_tong_ket and data.diem_tong_ket<4}">
+                <th:block th:if="${0<=data.getDouble('diem_tong_ket') and data.getDouble('diem_tong_ket')<4}">
                     <td class="cell100 column5" >0.0</td>
                     <td class="cell100 column6" >F</td>
                 </th:block>

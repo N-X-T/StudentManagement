@@ -4,6 +4,7 @@ import com.nxt.ltw.entity.CustomUserDetail;
 import com.nxt.ltw.entity.Feedback;
 import com.nxt.ltw.entity.ResponseObject;
 import com.nxt.ltw.service.Impl.UserServiceImpl;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,8 +21,8 @@ public class StudentController {
         return userService.save(customUserDetail);
     }
     @GetMapping("/api/dashboard")
-    ResponseEntity<ResponseObject> dashboard(@RequestParam(required = false) String start, @RequestParam(required = false) String end, Authentication auth) {
-        return userService.handleTimeTable(start,end,auth);
+    ResponseEntity<ResponseObject> dashboard(@RequestParam(required = false) String start, @RequestParam(required = false) String end, Authentication auth, HttpSession session) {
+        return userService.handleTimeTable(start,end,auth,session);
     }
     @GetMapping("/api/hoctap/loptinchi")
     ResponseEntity<ResponseObject> loptinchi(@RequestParam(required = false) String kihoc, Authentication auth){
@@ -44,7 +45,7 @@ public class StudentController {
         return userService.handlePhanhoiForm(model, auth);
     }
     @PostMapping("/api/tienichkhac/phanhoi")
-    ResponseEntity<ResponseObject> PostPhanhoi(@ModelAttribute("feedback") Feedback feedback, Model model, Authentication auth){
+    ResponseEntity<ResponseObject> PostPhanhoi(Feedback feedback, Model model, Authentication auth){
         return userService.handlePhanhoi(feedback, model, auth);
     }
     @GetMapping("/api/account/center")
@@ -63,43 +64,43 @@ public class StudentController {
 
     //Đang phát triển :))
     @GetMapping("/api/tienichkhac/vanbanhuongdan")
-    ResponseEntity<ResponseObject> vanbanhuongdan(Model model, Authentication auth){
-        return ResponseEntity.status(HttpStatus.OK).body(new ResponseObject("OK","Chức năng đang phát triển",""));
+    ResponseEntity<ResponseObject> vanbanhuongdan(Model model, Authentication auth, HttpSession session){
+        return ResponseEntity.status(HttpStatus.OK).body(new ResponseObject("OK","Chức năng đang phát triển",session.getAttribute("hoten")));
     }
     @GetMapping("/api/tienichkhac/khaosat")
-    ResponseEntity<ResponseObject> khaosat(Model model, Authentication auth){
-        return ResponseEntity.status(HttpStatus.OK).body(new ResponseObject("OK","Chức năng đang phát triển",""));
+    ResponseEntity<ResponseObject> khaosat(Model model, Authentication auth, HttpSession session){
+        return ResponseEntity.status(HttpStatus.OK).body(new ResponseObject("OK","Chức năng đang phát triển",session.getAttribute("hoten")));
     }
     @GetMapping("/api/tienichkhac/khaibaosuckhoe")
-    ResponseEntity<ResponseObject> khaibaosuckhoe(Model model, Authentication auth){
-        return ResponseEntity.status(HttpStatus.OK).body(new ResponseObject("OK","Chức năng đang phát triển",""));
+    ResponseEntity<ResponseObject> khaibaosuckhoe(Model model, Authentication auth, HttpSession session){
+        return ResponseEntity.status(HttpStatus.OK).body(new ResponseObject("OK","Chức năng đang phát triển",session.getAttribute("hoten")));
     }
     /*@GetMapping("/api/tienichkhac/gioithieu")
     ResponseEntity<ResponseObject> gioithieu(Model model, Authentication auth){
         return ResponseEntity.status(HttpStatus.OK).body(new ResponseObject("OK","Chức năng đang phát triển",""));
     }*/
     @GetMapping("/api/tintuc")
-    ResponseEntity<ResponseObject> tintuc(Model model, Authentication auth){
-        return ResponseEntity.status(HttpStatus.OK).body(new ResponseObject("OK","Chức năng đang phát triển",""));
+    ResponseEntity<ResponseObject> tintuc(Model model, Authentication auth, HttpSession session){
+        return ResponseEntity.status(HttpStatus.OK).body(new ResponseObject("OK","Chức năng đang phát triển",session.getAttribute("hoten")));
     }
     @GetMapping("/api/dichvumotcuasv")
-    ResponseEntity<ResponseObject> dichvumotcua(Model model, Authentication auth){
-        return ResponseEntity.status(HttpStatus.OK).body(new ResponseObject("OK","Chức năng đang phát triển",""));
+    ResponseEntity<ResponseObject> dichvumotcua(Model model, Authentication auth, HttpSession session){
+        return ResponseEntity.status(HttpStatus.OK).body(new ResponseObject("OK","Chức năng đang phát triển",session.getAttribute("hoten")));
     }
     @GetMapping("/api/congnosinhvien")
-    ResponseEntity<ResponseObject> congnosinhvien(Model model, Authentication auth){
-        return ResponseEntity.status(HttpStatus.OK).body(new ResponseObject("OK","Chức năng đang phát triển",""));
+    ResponseEntity<ResponseObject> congnosinhvien(Model model, Authentication auth, HttpSession session){
+        return ResponseEntity.status(HttpStatus.OK).body(new ResponseObject("OK","Chức năng đang phát triển",session.getAttribute("hoten")));
     }
     @GetMapping("/api/quanlythuviensinhvien/quanlyluanansinhvien")
-    ResponseEntity<ResponseObject> quanlyluanansinhvien(Model model, Authentication auth){
-        return ResponseEntity.status(HttpStatus.OK).body(new ResponseObject("OK","Chức năng đang phát triển",""));
+    ResponseEntity<ResponseObject> quanlyluanansinhvien(Model model, Authentication auth, HttpSession session){
+        return ResponseEntity.status(HttpStatus.OK).body(new ResponseObject("OK","Chức năng đang phát triển",session.getAttribute("hoten")));
     }
     @GetMapping("/api/quanlythuviensinhvien/quanlyluanvansinhvien")
-    ResponseEntity<ResponseObject> quanlyluanvansinhvien(Model model, Authentication auth){
-        return ResponseEntity.status(HttpStatus.OK).body(new ResponseObject("OK","Chức năng đang phát triển",""));
+    ResponseEntity<ResponseObject> quanlyluanvansinhvien(Model model, Authentication auth, HttpSession session){
+        return ResponseEntity.status(HttpStatus.OK).body(new ResponseObject("OK","Chức năng đang phát triển",session.getAttribute("hoten")));
     }
     @GetMapping("/api/quanlythuviensinhvien/quanlykhoaluansinhvien")
-    ResponseEntity<ResponseObject> quanlykhoaluansinhvien(Model model, Authentication auth){
-        return ResponseEntity.status(HttpStatus.OK).body(new ResponseObject("OK","Chức năng đang phát triển",""));
+    ResponseEntity<ResponseObject> quanlykhoaluansinhvien(Model model, Authentication auth, HttpSession session){
+        return ResponseEntity.status(HttpStatus.OK).body(new ResponseObject("OK","Chức năng đang phát triển",session.getAttribute("hoten")));
     }
 }

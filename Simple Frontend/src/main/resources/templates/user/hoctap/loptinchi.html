@@ -84,7 +84,7 @@ body{
             </ul>
         </li>
         <li>
-            <a th:text="${user.hoten}"></a>
+            <a th:text="${hoten}"></a>
             <ul class="sub-menu">
                 <li><a href="/account/center">Trang cá nhân</a></li>
                 <li><a href="/logout">Đăng xuất</a></li>
@@ -119,12 +119,14 @@ body{
         <table>
             <tbody>
             <th:block th:each="data,state : ${loptinchi}">
-                <tr class="row100 body" th:attr="onclick=${'location.pathname=''/hoctap/loptinchi/'+data.nhommonhoc+''';'}">
-                    <td class="cell100 column1" th:text="${state.count}"></td>
-                    <td class="cell100 column2" th:text="${data.nhommonhoc}"></td>
-                    <td class="cell100 column3" th:text="${data.getMonhoc().mamonhoc}"></td>
-                    <td class="cell100 column4" th:text="${data.getMonhoc().tenmonhoc}"></td>
-                </tr>
+                <th:block th:if="${data.getString('nhommonhoc')}">
+                    <tr class="row100 body" th:attr="onclick=${'location.pathname=''/hoctap/loptinchi/'+data.getString('nhommonhoc')+''';'}">
+                        <td class="cell100 column1" th:text="${state.count}"></td>
+                        <td class="cell100 column2" th:text="${data.getString('nhommonhoc')}"></td>
+                        <td class="cell100 column3" th:text="${data.getString('mamonhoc')}"></td>
+                        <td class="cell100 column4" th:text="${data.getString('tenmonhoc')}"></td>
+                    </tr>
+                </th:block>
             </th:block>
             </tbody>
         </table>

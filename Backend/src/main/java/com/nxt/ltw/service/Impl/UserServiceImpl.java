@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nxt.ltw.dto.*;
 import com.nxt.ltw.entity.*;
 import com.nxt.ltw.repository.*;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -64,7 +65,7 @@ public class UserServiceImpl {
         userRepository.save(currentUserDetail1);
         return ResponseEntity.status(HttpStatus.OK).body(new ResponseObject("OK", "Save Information Successfully", ""));
     }
-        public ResponseEntity<ResponseObject> handleTimeTable(String start, String end, Authentication auth) {
+        public ResponseEntity<ResponseObject> handleTimeTable(String start, String end, Authentication auth, HttpSession session) {
         CustomUserDetail customUserDetail = findUser(auth);
         LocalDate startL,endL;
         if(start == null || end == null){
@@ -118,6 +119,7 @@ public class UserServiceImpl {
         }
         HashMap<String,Object> data = new HashMap<>();
         data.put("hoten",customUserDetail.getHoten());
+        session.setAttribute("hoten",customUserDetail.getHoten());
         data.put("timetable", timeTableDTOS);
         return ResponseEntity.status(HttpStatus.OK).body(new ResponseObject("OK","Query TimeTable Successfully",data));
     }
@@ -132,6 +134,7 @@ public class UserServiceImpl {
         ).collect(Collectors.toList());
         HashMap<String,Object> data = new HashMap<>();
         data.put("hoten", current.getHoten());
+        data.put("malophanhchinh", current.getLophanhchinh());
         data.put("lophanhchinh",userDetailDTOS);
         return ResponseEntity.status(HttpStatus.OK).body(new ResponseObject("OK", "Query lophanhchinh successfully",data));
     }
