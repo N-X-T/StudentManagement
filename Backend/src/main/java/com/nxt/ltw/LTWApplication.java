@@ -9,14 +9,7 @@ import java.beans.BeanProperty;
 
 @SpringBootApplication
 public class LTWApplication {
-
 	public static void main(String[] args) {
 		SpringApplication.run(LTWApplication.class, args);
 	}
-
-	@Bean
-	public ObjectMapper objectMapper(){
-		return new ObjectMapper();
-	}
-
 }

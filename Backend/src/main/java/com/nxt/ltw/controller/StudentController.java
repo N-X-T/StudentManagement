@@ -15,6 +15,10 @@ import org.springframework.web.bind.annotation.*;
 public class StudentController {
     @Autowired
     UserServiceImpl userService;
+    @PostMapping("/register")
+    ResponseEntity<ResponseObject> register(@ModelAttribute("user") CustomUserDetail customUserDetail){
+        return userService.save(customUserDetail);
+    }
     @GetMapping("/api/dashboard")
     ResponseEntity<ResponseObject> dashboard(@RequestParam(required = false) String start, @RequestParam(required = false) String end, Authentication auth) {
         return userService.handleTimeTable(start,end,auth);

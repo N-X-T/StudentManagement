@@ -1,7 +1,6 @@
 package com.nxt.ltw.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.nxt.ltw.controller.LoginHandler;
 import com.nxt.ltw.entity.ResponseObject;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -18,8 +17,8 @@ import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.access.AccessDeniedHandler;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import java.io.IOException;
 
@@ -36,8 +35,13 @@ public class SpringSecurity {
         //return new BCryptPasswordEncoder();
     }
     @Bean
-    public AuthenticationSuccessHandler myAuthenticationSuccessHandler(){
-        return new LoginHandler();
+    public AuthenticationSuccessHandler authenticationSuccessHandler() {
+        return new CustomAuthenticationSuccessHandler();
+    }
+
+    @Bean
+    public AuthenticationFailureHandler authenticationFailureHandler() {
+        return new CustomAuthenticationFailureHandler();
     }
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -68,21 +72,23 @@ public class SpringSecurity {
                                 ).hasRole("ADMIN")
 
                                 .anyRequest().permitAll()
-                ).formLogin(
-                        form -> form
-                                .loginPage("/login")
-                                .loginProcessingUrl("/login")
-                                //.defaultSuccessUrl("/dashboard")
-                                .successHandler(myAuthenticationSuccessHandler())
-                                .permitAll()
-                ).logout(
-                        logout -> logout
-                                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                                .permitAll()
-                ).exceptionHandling().accessDeniedHandler(accessDeniedHandler());
+                ).formLogin()
+                    .loginProcessingUrl("/api/login")
+                    .usernameParameter("username")
+                    .passwordParameter("password")
+                    .successHandler(authenticationSuccessHandler()) // Xử lý sau khi đăng nhập thành công
+                    .failureHandler(authenticationFailureHandler()) // Xử lý sau khi đăng nhập thất bại
+                    .permitAll()
+                .and()
+                .logout()
+                    .logoutUrl("/api/logout") // URL xử lý đăng xuất
+                    .invalidateHttpSession(true)
+                    .deleteCookies("JSESSIONID")
+                    .permitAll()
+                .and()
+                .exceptionHandling().accessDeniedHandler(accessDeniedHandler());
         return http.build();
     }
-    //@Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth
                 .userDetailsService(userDetailsService)

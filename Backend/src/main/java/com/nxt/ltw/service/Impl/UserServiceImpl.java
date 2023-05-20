@@ -35,20 +35,22 @@ public class UserServiceImpl {
     @Autowired
     DiemThanhPhanRepository diemThanhPhanRepository;
 
-    @Autowired
-    ObjectMapper objectMapper;
-
     public String findName(Authentication auth){
         return userRepository.findByUsername(auth.getName()).getHoten();
     }
-    public void save(CustomUserDetail customUserDetail){
-        customUserDetail.setPassword(passwordEncoder.encode(customUserDetail.getPassword()));
-        List<Role> roleList = roleRepository.findByName("ROLE_USER");
-        if(roleList.isEmpty()){
-            roleList=Arrays.asList(new Role("ROLE_USER"));
+    public ResponseEntity<ResponseObject> save(CustomUserDetail customUserDetail){
+        try {
+            customUserDetail.setPassword(passwordEncoder.encode(customUserDetail.getPassword()));
+            List<Role> roleList = roleRepository.findByName("ROLE_USER");
+            if (roleList.isEmpty()) {
+                roleList = Arrays.asList(new Role("ROLE_USER"));
+            }
+            customUserDetail.setRole(roleList);
+            userRepository.save(customUserDetail);
+            return ResponseEntity.status(HttpStatus.OK).body(new ResponseObject("OK", "Register Successfully", ""));
+        }catch(Exception e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ResponseObject("Fail", "Register Failed", ""));
         }
-        customUserDetail.setRole(roleList);
-        userRepository.save(customUserDetail);
     }
     public CustomUserDetail findUser(Authentication auth){
         return userRepository.findByUsername(auth.getName());
