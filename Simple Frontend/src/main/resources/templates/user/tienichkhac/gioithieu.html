@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Giới thiệu</title>
+    <style>
+*{
+  margin:0;
+  padding:0;
+}
+body{
+  font-family: sans-serif;
+  background: #f0f2f5;
+}
+#menu ul {
+  list-style-type: none;
+  background: #001529;
+  text-align: center;
+}
+#menu ul li {
+  color: #fff;
+  display: inline-table;
+  width: 180px;
+  height: 48px;
+  line-height: 48px;
+  position: relative;
+}
+#menu ul li a {
+  color: #fff;
+  text-decoration: none;
+  display: block;
+}
+#menu ul li a:hover {
+  border-bottom-right-radius: 20px;
+  border-bottom-left-radius: 20px;
+  background: #cc0d00;
+  color: #001529;
+}
+#menu .sub-menu{
+  border-bottom-right-radius: 20px;
+  border-bottom-left-radius: 20px;
+  display: none;
+  position: absolute;
+}
+#menu ul li:hover .sub-menu{
+  display: block;
+  z-index: 2000;
+}
+#dangphattrien{
+  font-size: 50px;
+  padding: 70px;
+  text-align: center;
+}
+    </style>
+</head>
+<body>
+<div id="menu">
+    <ul>
+        <li><a href="/dashboard">Trang chủ</a></li>
+        <li><a href="/tintuc">Tin tức</a></li>
+        
+        <li>
+            <a>Học tập</a>
+            <ul class="sub-menu">
+                <li><a href="/hoctap/loptinchi">Lớp tín chỉ</a></li>
+                <li><a href="/hoctap/lophanhchinh">Lớp hành chính</a></li>
+                <li><a href="/hoctap/gochoctap">Kết quả học tập</a></li>
+            </ul>
+        </li>
+        <li><a href="/dichvumotcuasv">Dịch vụ một cửa</a></li>
+        <li><a href="/congnosinhvien">Công nợ</a></li>
+        <li>
+            <a>Thư viện</a>
+            <ul class="sub-menu">
+                <li><a href="/quanlythuviensinhvien/quanlyluanansinhvien">Nộp luận án</a></li>
+                <li><a href="/quanlythuviensinhvien/quanlyluanvansinhvien">Nộp luận văn</a></li>
+                <li><a href="/quanlythuviensinhvien/quanlykhoaluansinhvien">Nộp khoá luận/đồ án</a></li>
+            </ul>
+        </li>
+        <li>
+            <a>Tiện ích khác</a>
+            <ul class="sub-menu">
+                <li><a href="/tienichkhac/phanhoi">Phản hồi</a></li>
+                <li><a href="/tienichkhac/vanbanhuongdan">Văn bản hướng dẫn</a></li>
+                <li><a href="/tienichkhac/khaosat">Khảo sát trực tuyến</a></li>
+                <li><a href="/tienichkhac/khaibaosuckhoe">Khai báo y tế</a></li>
+                <li><a href="/tienichkhac/gioithieu">Giới thiệu</a></li>
+            </ul>
+        </li>
+        <li>
+            <a th:text="${name}"></a>
+            <ul class="sub-menu">
+                <li><a href="/account/center">Trang cá nhân</a></li>
+                <li><a href="/logout">Đăng xuất</a></li>
+            </ul>
+        </li>
+    </ul>
+</div>
+<div style="padding: 50px;">
+<div id="Subheader">
+    <div class="container">
+        <div class="column one">
+            <h1 class="title" style="text-align: center;"><span style="font-size: 14pt; color: #e03e2d;">GIỚI THIỆU</span></h1>
+        </div>
+    </div>
+</div>
+    <div class="entry-content">
+        <div class="section the_content has_content">
+            <div class="section_wrapper">
+                <div class="the_content_wrapper">
+                    <p style="text-align: justify;">Học viện Công nghệ Bưu chính Viễn thông thành lập theo quyết định số 516/TTg của Thủ tướng Chính phủ ngày 11 tháng 7 năm 1997 trên cơ sở sắp xếp lại 4 đơn vị thành viên thuộc Tổng Công ty Bưu chính Viễn thông Việt Nam, nay là Tập đoàn Bưu chính Viễn thông Việt Nam là Viện Khoa học Kỹ thuật Bưu điện, Viện Kinh tế Bưu điện, Trung tâm đào tạo Bưu chính Viễn thông 1 và 2. Các đơn vị tiền thân của Học viện là những đơn vị có bề dày lịch sử hình thành và phát triển với xuất phát điểm từ Trường Đại học Bưu điện 1953.</p>
+                    <p style="text-align: justify;">Từ ngày 1/7/2014, thực hiện Quyết định của Thủ tướng Chính phủ, Bộ trưởng Bộ Thông tin và Truyền thông đã ban hành Quyết định số 878/QĐ-BTTTT điều chuyển quyền quản lý Học viện từ Tập đoàn Bưu chính Viễn thông Việt Nam về Bộ Thông tin và Truyền thông. Học viện Công nghệ Bưu chính Viễn thông là đơn vị sự nghiệp trực thuộc Bộ. Là trường đại học, đơn vị nghiên cứu, phát triển nguồn nhân lực trọng điểm của Ngành thông tin và truyền thông.</p>
+                    <p style="text-align: justify;">Với vị thế là đơn vị đào tạo, nghiên cứu trọng điểm, chủ lực của Ngành thông tin và truyền thông&nbsp; Việt Nam, là trường đại học trọng điểm quốc gia trong lĩnh vực ICT, những thành tựu trong gắn kết giữa Nghiên cứu – Đào tạo – Sản xuất kinh doanh năng lực, quy mô phát triển của Học viện hôm nay, Học viện sẽ có những đóng góp hiệu quả phục vụ sự phát triển chung của Ngành Thông tin và truyền thông và sự nghiệp xây dựng, bảo vệ tổ quốc, góp phần để đất nước, để Ngành Thông tin và truyền thông Việt Nam có sự tự chủ, độc lập về khoa học công nghệ và nguồn nhân lực, qua đó tự tin cạnh tranh với các đối thủ lớn và sánh vai với các cường quốc trên thế giới.</p>
+                    <p><span style="color: #e03e2d;"><strong>Chức năng và nhiệm vụ</strong></span><img class="aligncenter size-full wp-image-4132" style="display: block; margin-left: auto; margin-right: auto;" src="/images/hocvienHQV.jpg" sizes="(max-width: 674px) 100vw, 674px" srcset="/images/hocvienHQV.jpg 674w, /hocvienHQV-300x201.jpg 300w, /hocvienHQV-218x146.jpg 218w, /hocvienHQV-50x33.jpg 50w, /hocvienHQV-112x75.jpg 112w" alt="hocvienHQV" width="340" height="227"></p>
+                    <p style="text-align: justify;">Học viện Công nghệ Bưu chính – Viễn thông là đơn vị sự nghiệp trực thuộc Bộ Thông tin và truyền thông, Học viện thực hiện hai chức năng cơ bản: Giáo dục, đào tạo cho xã hội và cho nhu cầu của Ngành thông tin và truyền thông Việt Nam. Nghiên cứu khoa học, tư vấn, chuyển giao công nghệ trong lĩnh vực Bưu chính, Viễn thông và công nghệ thông tin đáp ứng nhu cầu xã hội và nhu cầu của Ngành thông tin và truyền thông Việt Nam.</p>
+                    <p style="text-align: justify;"><span style="color: #e03e2d;"><strong>Đào tạo</strong></span></p>
+                    <p style="text-align: justify;">Hệ thống đào tạo và cấp bằng của Học viện bao gồm nhiều cấp độ tuỳ thuộc vào thời gian đào tạo và chất lượng đầu vào của các học viên. Hiện nay Học viện cung cấp các dịch vụ giáo dục, đào tạo chủ yếu sau đây: Thực hiện các khoá đào tạo bậc Cao đẳng, Đại học, Thạc sĩ và Tiến sĩ theo chương trình chuẩn quốc gia và quốc tế theo các hình thức khác nhau như tập trung, phi tập trung, liên thông, đào tạo từ xa… Tổ chức các khoá đào tạo bồi dưỡng ngắn hạn cấp chứng chỉ trong các lĩnh vực Bưu chính, Viễn thông, công nghệ thông tin, quản trị kinh doanh, an toàn thông tin, công nghệ đa phương tiện… Tổ chức các chương trình đào tạo cho nước thứ ba. Sẵn sàng liên danh, liên kết với các đối tác trong nước và quốc tế trong lĩnh vực giáo dục, đào tạo.</p>
+                    <p style="text-align: justify;"><span style="color: #e03e2d;"><strong>Nghiên cứu khoa học và tư vấn chuyển giao công nghệ</strong></span></p>
+                    <p style="text-align: justify;">Tổ chức nghiên cứu về chiến lược, quy hoạch phát triển mạng và dịch vụ bưu chính, viễn thông và công nghệ thông tin. Tổ chức nghiên cứu về công nghệ, giải pháp và phát triển dịch vụ trong lĩnh vực bưu chính, viễn thông và công nghệ thông tin. Tổ chức nghiên cứu và phát triển các sản phẩm, bán sản phẩm trong lĩnh vực điện tử – viễn thông. Tổ chức nghiên cứu về quản lý, điều hành doanh nghiệp và các lĩnh vực kinh tế khác. Cung cấp các dịch vụ tư vấn về công nghệ, giải pháp và phát triển dịch vụ trong lĩnh vực bưu chính, viễn thông, công nghệ thông tin và lĩnh vực kinh tế cho các đơn vị trong và ngoài Ngành thông tin và truyền thông &nbsp;Việt Nam. Cung cấp các dịch vụ đo lường, kiểm chuẩn, tư vấn thẩm định các công trình, dự án thuộc lĩnh vực bưu chính viễn thông và công nghệ thông tin..</p>
+                    <p style="text-align: justify;">&nbsp;</p>
+                </div>
+            </div>
+        </div>
+    </div></div>
+</body>
+</html>

@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Lớp hành chính</title>
+    <style>
+*{
+  margin:0;
+  padding:0;
+}
+body{
+  font-family: sans-serif;
+  background: #f0f2f5;
+}
+#menu ul {
+  list-style-type: none;
+  background: #001529;
+  text-align: center;
+}
+#menu ul li {
+  color: #fff;
+  display: inline-table;
+  width: 180px;
+  height: 48px;
+  line-height: 48px;
+  position: relative;
+}
+#menu ul li a {
+  color: #fff;
+  text-decoration: none;
+  display: block;
+}
+#menu ul li a:hover {
+  border-bottom-right-radius: 20px;
+  border-bottom-left-radius: 20px;
+  background: #cc0d00;
+  color: #001529;
+}
+#menu .sub-menu{
+  border-bottom-right-radius: 20px;
+  border-bottom-left-radius: 20px;
+  display: none;
+  position: absolute;
+}
+#menu ul li:hover .sub-menu{
+  display: block;
+  z-index: 2000;
+}
+    </style>
+    <link rel="stylesheet" th:href="@{/assets/css/table2.css}">
+</head>
+<body>
+<div id="menu">
+    <ul>
+        <li><a href="/dashboard">Trang chủ</a></li>
+        <li><a href="/tintuc">Tin tức</a></li>
+
+        <li>
+            <a>Học tập</a>
+            <ul class="sub-menu">
+                <li><a href="/hoctap/loptinchi">Lớp tín chỉ</a></li>
+                <li><a href="/hoctap/lophanhchinh">Lớp hành chính</a></li>
+                <li><a href="/hoctap/gochoctap">Kết quả học tập</a></li>
+            </ul>
+        </li>
+        <li><a href="/dichvumotcuasv">Dịch vụ một cửa</a></li>
+        <li><a href="/congnosinhvien">Công nợ</a></li>
+        <li>
+            <a>Thư viện</a>
+            <ul class="sub-menu">
+                <li><a href="/quanlythuviensinhvien/quanlyluanansinhvien">Nộp luận án</a></li>
+                <li><a href="/quanlythuviensinhvien/quanlyluanvansinhvien">Nộp luận văn</a></li>
+                <li><a href="/quanlythuviensinhvien/quanlykhoaluansinhvien">Nộp khoá luận/đồ án</a></li>
+            </ul>
+        </li>
+        <li>
+            <a>Tiện ích khác</a>
+            <ul class="sub-menu">
+                <li><a href="/tienichkhac/phanhoi">Phản hồi</a></li>
+                <li><a href="/tienichkhac/vanbanhuongdan">Văn bản hướng dẫn</a></li>
+                <li><a href="/tienichkhac/khaosat">Khảo sát trực tuyến</a></li>
+                <li><a href="/tienichkhac/khaibaosuckhoe">Khai báo y tế</a></li>
+                <li><a href="/tienichkhac/gioithieu">Giới thiệu</a></li>
+            </ul>
+        </li>
+        <li>
+            <a th:text="${user.hoten}"></a>
+            <ul class="sub-menu">
+                <li><a href="/account/center">Trang cá nhân</a></li>
+                <li><a href="/logout">Đăng xuất</a></li>
+            </ul>
+        </li>
+    </ul>
+</div>
+<div class="ListDecriptsion">Điểm thành phần</div>
+<div class="table100 ver2 m-b-110">
+    <div class="table100-head">
+        <table>
+            <thead>
+            <tr class="row100 head">
+                <th class="cell100 column1">STT</th>
+                <th class="cell100 column2">Tên học phần</th>
+                <th class="cell100 column3">Số tín chỉ</th>
+                <th class="cell100 column4">Tổng kết (hệ 10)</th>
+                <th class="cell100 column5">Tổng kết (hệ 4)</th>
+                <th class="cell100 column6">Tổng kết (dạng chữ)</th>
+            </tr>
+            </thead>
+        </table>
+    </div>
+    <div class="table100-body js-pscroll ps ps--active-y">
+        <table>
+            <tbody>
+            <tr class="row100 body" th:each="data,state : ${gochoctap}">
+                <td class="cell100 column1" th:text="${state.count}"></td>
+                <td class="cell100 column2" th:text="${data.monhoc.tenmonhoc}"></td>
+                <td class="cell100 column3" th:text="${data.monhoc.sotinchi}"></td>
+                <td class="cell100 column4" th:text="${data.diem_tong_ket}"></td>
+                <th:block th:if="${9<=data.diem_tong_ket and data.diem_tong_ket<=10}">
+                    <td class="cell100 column5">4.0</td>
+                    <td class="cell100 column6">A+</td>
+                </th:block>
+                <th:block th:if="${8.5<=data.diem_tong_ket and data.diem_tong_ket<9}">
+                    <td class="cell100 column5">3.7</td>
+                    <td class="cell100 column6">A</td>
+                </th:block>
+                <th:block th:if="${8<=data.diem_tong_ket and data.diem_tong_ket<8.5}">
+                    <td class="cell100 column5">3.5</td>
+                    <td class="cell100 column6">B+</td>
+                </th:block>
+                <th:block th:if="${7<=data.diem_tong_ket and data.diem_tong_ket<8}">
+                    <td class="cell100 column5" >3.0</td>
+                    <td class="cell100 column6" >B</td>
+                </th:block>
+                <th:block th:if="${6.5<=data.diem_tong_ket and data.diem_tong_ket<7}">
+                    <td class="cell100 column5" >2.5</td>
+                    <td class="cell100 column6" >C+</td>
+                </th:block>
+                <th:block th:if="${5.5<=data.diem_tong_ket and data.diem_tong_ket<6.5}">
+                    <td class="cell100 column5" >2.0</td>
+                    <td class="cell100 column6" >C</td>
+                </th:block>
+                <th:block th:if="${5<=data.diem_tong_ket and data.diem_tong_ket<5.5}">
+                    <td class="cell100 column5" >1.5</td>
+                    <td class="cell100 column6" >D+</td>
+                </th:block>
+                <th:block th:if="${4<=data.diem_tong_ket and data.diem_tong_ket<5}">
+                    <td class="cell100 column5" >1.0</td>
+                    <td class="cell100 column6" >D</td>
+                </th:block>
+                <th:block th:if="${0<=data.diem_tong_ket and data.diem_tong_ket<4}">
+                    <td class="cell100 column5" >0.0</td>
+                    <td class="cell100 column6" >F</td>
+                </th:block>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

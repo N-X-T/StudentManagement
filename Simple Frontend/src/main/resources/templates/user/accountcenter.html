@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Account Center</title>
+    <style>
+*{
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	font-weight: 300;
+}
+body{
+  font-family: sans-serif;
+  background: #f0f2f5;
+}
+#menu{
+  position: relative;
+  z-index: 2000;
+}
+#menu ul {
+  list-style-type: none;
+  background: #001529;
+  text-align: center;
+}
+#menu ul li {
+  color: #fff;
+  display: inline-table;
+  width: 180px;
+  height: 48px;
+  line-height: 48px;
+  position: relative;
+}
+#menu ul li a {
+  color: #fff;
+  text-decoration: none;
+  display: block;
+}
+#menu ul li a:hover {
+  border-bottom-right-radius: 20px;
+  border-bottom-left-radius: 20px;
+  background: #cc0d00;
+  color: #001529;
+}
+#menu .sub-menu{
+  border-bottom-right-radius: 20px;
+  border-bottom-left-radius: 20px;
+  display: none;
+  position: absolute;
+}
+#menu ul li:hover .sub-menu{
+  display: block;
+  z-index: 2000;
+}
+.Information{
+  margin: 0 auto 10px auto;
+  border: 1px solid black;
+  border-radius: 3px;
+  width: 800px;
+  background: white;
+  font-size: 25px;
+  position: relative;
+}
+.Information a{
+  color: black;
+  text-decoration: none;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+}
+.Information table{
+  margin: auto auto auto 70px;
+  padding: 8px;
+  padding-bottom: 20px;
+}
+td{
+    padding-left: 20px;
+    padding-top: 20px;
+ }
+    </style>
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+</head>
+<body>
+<div id="menu">
+    <ul>
+        <li><a href="/dashboard">Trang chủ</a></li>
+        <li><a href="/tintuc">Tin tức</a></li>
+
+        <li>
+            <a>Học tập</a>
+            <ul class="sub-menu">
+                <li><a href="/hoctap/loptinchi">Lớp tín chỉ</a></li>
+                <li><a href="/hoctap/lophanhchinh">Lớp hành chính</a></li>
+                <li><a href="/hoctap/gochoctap">Kết quả học tập</a></li>
+            </ul>
+        </li>
+        <li><a href="/dichvumotcuasv">Dịch vụ một cửa</a></li>
+        <li><a href="/congnosinhvien">Công nợ</a></li>
+        <li>
+            <a>Thư viện</a>
+            <ul class="sub-menu">
+                <li><a href="/quanlythuviensinhvien/quanlyluanansinhvien">Nộp luận án</a></li>
+                <li><a href="/quanlythuviensinhvien/quanlyluanvansinhvien">Nộp luận văn</a></li>
+                <li><a href="/quanlythuviensinhvien/quanlykhoaluansinhvien">Nộp khoá luận/đồ án</a></li>
+            </ul>
+        </li>
+        <li>
+            <a>Tiện ích khác</a>
+            <ul class="sub-menu">
+                <li><a href="/tienichkhac/phanhoi">Phản hồi</a></li>
+                <li><a href="/tienichkhac/vanbanhuongdan">Văn bản hướng dẫn</a></li>
+                <li><a href="/tienichkhac/khaosat">Khảo sát trực tuyến</a></li>
+                <li><a href="/tienichkhac/khaibaosuckhoe">Khai báo y tế</a></li>
+                <li><a href="/tienichkhac/gioithieu">Giới thiệu</a></li>
+            </ul>
+        </li>
+        <li>
+            <a th:text="${users.hoten}"></a>
+            <ul class="sub-menu">
+                <li><a href="/account/center">Trang cá nhân</a></li>
+                <li><a href="/logout">Đăng xuất</a></li>
+            </ul>
+        </li>
+    </ul>
+</div>
+<br>
+<div class="Information">
+    <a href='/account/center/edit' style='font-size:24px' class='far'>&#xf044;</a>
+    <table>
+        <tbody>
+        <tr><td>Họ tên:</td><td th:text="${users.hoten}"></td><tr>
+        <tr><td>Mã sinh viên:</td><td th:text="${users.masv}"></td></tr>
+        <tr><td>Ngày sinh:</td><td th:text="${users.ngaysinh}"></td></tr>
+        <tr><td>Giới tính:</td>
+            <td th:if="${users.gioitinh}">Nam</td>
+            <td th:unless="${users.gioitinh}">Nữ</td>
+        </tr>
+        <tr><td>Số điện thoại:</td><td th:text="${users.sodienthoai}"></td></tr>
+        <tr><td>Email:</td><td th:text="${users.email}"></td></tr>
+        <tbody>
+    </table>
+</div>
+</body>
+</html>

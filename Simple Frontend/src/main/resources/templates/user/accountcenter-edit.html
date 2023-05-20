@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Information</title>
+    <style>
+*{
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	font-weight: 300;
+}
+body{
+  font-family: sans-serif;
+  background: #f0f2f5;
+}
+#menu{
+  position: relative;
+  z-index: 2000;
+}
+#menu ul {
+  list-style-type: none;
+  background: #001529;
+  text-align: center;
+}
+#menu ul li {
+  color: #fff;
+  display: inline-table;
+  width: 180px;
+  height: 48px;
+  line-height: 48px;
+  position: relative;
+}
+#menu ul li a {
+  color: #fff;
+  text-decoration: none;
+  display: block;
+}
+#menu ul li a:hover {
+  border-bottom-right-radius: 20px;
+  border-bottom-left-radius: 20px;
+  background: #cc0d00;
+  color: #001529;
+}
+#menu .sub-menu{
+  border-bottom-right-radius: 20px;
+  border-bottom-left-radius: 20px;
+  display: none;
+  position: absolute;
+}
+#menu ul li:hover .sub-menu{
+  display: block;
+  z-index: 2000;
+}
+.Information{
+  margin: 0 auto 10px auto;
+  border: 1px solid black;
+  border-radius: 3px;
+  width: 800px;
+  background: white;
+  font-size: 25px;
+  position: relative;
+}
+.Information form{
+  padding-top: 30px;
+  padding-left: 100px;
+  padding-bottom:20px;
+}
+label {
+    float: left;
+    width: 6em;
+    margin-bottom: 0.5em;
+}
+input[type="text"], input[type="email"], input[type="date"],select {
+    height: 2em;
+    width: 15em;
+    margin-left: 8px;
+    margin-bottom: 30px;
+}
+{
+  height: 2em;
+  width: 15em;
+  margin-left: 0.5em;
+  margin-bottom: 0.5em;
+}
+br {
+    clear: both;
+}
+button {
+    height: 2em;
+    width: 15em;
+    margin-left: 30%;
+}
+input, select{
+  padding: 6px 12px;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #212529;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  appearance: none;
+  border-radius: 4px;
+  transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+  :focus{
+    color: #212529;
+    background-color: #fff;
+    border-color: #86b7fe;
+    outline: 0;
+    box-shadow: 0 0 0 0.25rem rgb(13 110 253 / 25%);
+  }
+}
+button{
+  background-color: #cc0d00;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  height: 40px;
+}
+    </style>
+</head>
+<body>
+<div id="menu">
+    <ul>
+        <li><a href="/dashboard">Trang chủ</a></li>
+        <li><a href="/tintuc">Tin tức</a></li>
+        
+        <li>
+            <a>Học tập</a>
+            <ul class="sub-menu">
+                <li><a href="/hoctap/loptinchi">Lớp tín chỉ</a></li>
+                <li><a href="/hoctap/lophanhchinh">Lớp hành chính</a></li>
+                <li><a href="/hoctap/gochoctap">Kết quả học tập</a></li>
+            </ul>
+        </li>
+        <li><a href="/dichvumotcuasv">Dịch vụ một cửa</a></li>
+        <li><a href="/congnosinhvien">Công nợ</a></li>
+        <li>
+            <a>Thư viện</a>
+            <ul class="sub-menu">
+                <li><a href="/quanlythuviensinhvien/quanlyluanansinhvien">Nộp luận án</a></li>
+                <li><a href="/quanlythuviensinhvien/quanlyluanvansinhvien">Nộp luận văn</a></li>
+                <li><a href="/quanlythuviensinhvien/quanlykhoaluansinhvien">Nộp khoá luận/đồ án</a></li>
+            </ul>
+        </li>
+        <li>
+            <a>Tiện ích khác</a>
+            <ul class="sub-menu">
+                <li><a href="/tienichkhac/phanhoi">Phản hồi</a></li>
+                <li><a href="/tienichkhac/vanbanhuongdan">Văn bản hướng dẫn</a></li>
+                <li><a href="/tienichkhac/khaosat">Khảo sát trực tuyến</a></li>
+                <li><a href="/tienichkhac/khaibaosuckhoe">Khai báo y tế</a></li>
+                <li><a href="/tienichkhac/gioithieu">Giới thiệu</a></li>
+            </ul>
+        </li>
+        <li>
+            <a th:text="${users.hoten}"></a>
+            <ul class="sub-menu">
+                <li><a href="/account/center">Trang cá nhân</a></li>
+                <li><a href="/logout">Đăng xuất</a></li>
+            </ul>
+        </li>
+    </ul>
+</div>
+<br>
+<div class="Information">
+    <form class="form" action="/account/center/edit" method="post" modelAttribute="update-user">
+        <label>Email:</label><input type="email" name="email" th:value="${users.email}" required><br>
+        <label>Số điện thoại:</label><input type="text" name="sodienthoai" th:value="${users.sodienthoai}" required><br>
+        <label>Ngày sinh:</label><input type="date" name="ngaysinh" th:value="${users.ngaysinh}" required><br>
+        <label>Giới tính:</label><select name="gioitinh">
+        <option value="1">Nam</option>
+        <option value="0">Nữ</option>
+    </select><br>
+        <button type="submit" id="update-button">Cập nhật</button>
+    </form>
+</div>
+</body>
+</html>

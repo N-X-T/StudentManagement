@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Phản hồi</title>
+    <style>
+*{
+  margin:0;
+  padding:0;
+}
+body{
+  font-family: sans-serif;
+  background: #f0f2f5;
+}
+#menu ul {
+  list-style-type: none;
+  background: #001529;
+  text-align: center;
+}
+#menu ul li {
+  color: #fff;
+  display: inline-table;
+  width: 180px;
+  height: 48px;
+  line-height: 48px;
+  position: relative;
+}
+#menu ul li a {
+  color: #fff;
+  text-decoration: none;
+  display: block;
+}
+#menu ul li a:hover {
+  border-bottom-right-radius: 20px;
+  border-bottom-left-radius: 20px;
+  background: #cc0d00;
+  color: #001529;
+}
+#menu .sub-menu{
+  border-bottom-right-radius: 20px;
+  border-bottom-left-radius: 20px;
+  display: none;
+  position: absolute;
+}
+#menu ul li:hover .sub-menu{
+  display: block;
+  z-index: 2000;
+}
+input[type=text], select, textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  margin-top: 6px;
+  margin-bottom: 16px;
+  resize: vertical;
+}
+
+input[type=submit]{
+  background-color: #cc0d00;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 100px;
+  margin-left: calc(50% - 50px);
+}
+button{
+  background-color: #cc0d00;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+input[type=submit]:hover {
+  background-color: #45a049;
+}
+
+.container {
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  padding: 20px;
+}
+div.ClassName{
+  padding-left:40px;
+  padding-top:40px;
+  font-family:sans-serif;
+  font-size:30px;
+}
+div.ClassDecriptsion{
+  padding-left:40px;
+  padding-top:10px;
+  padding-bottom:40px;
+  font-family:sans-serif;
+}
+div.ListDecriptsion{
+  padding:20px;
+  font-family:sans-serif;
+  font-size:30px;
+}
+table {
+  border-collapse: collapse;
+}
+th {
+  text-align: left;
+}
+.ps {
+  overflow: hidden !important;
+  overflow-anchor: none;
+  -ms-overflow-style: none;
+  touch-action: auto;
+  -ms-touch-action: auto;
+}
+.m-b-110 {
+  margin-bottom: 110px;
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.js-pscroll {
+  position: relative;
+  overflow: hidden;
+}
+.table100 {
+  background-color: #fff;
+}
+table {
+  width: 100%;
+}
+td,
+th {
+  font-weight: unset;
+  padding-right: 10px;
+}
+.column1{width:5%;text-align:center;}
+.column2{width:15%;text-align:center;}
+.column3{width:35%;text-align:center;}
+.column4{width:35%;text-align:center;}
+.column5{width:10%;text-align:center;}
+.table100-head th {
+  padding-top: 18px;
+  padding-bottom: 18px;
+}
+.table100-body td {
+  padding-top: 16px;
+  padding-bottom: 16px;
+}
+.table100 {
+  position: relative;
+  padding-top: 60px;
+}
+.table100-head {
+  position: absolute;
+  width: 100%;
+  top: 0;
+  left: 0;
+}
+.table100-body {
+  overflow: auto;
+}
+.table100.ver2 .table100-head {
+  box-shadow: 0 5px 20px 0 rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 0 5px 20px 0 rgba(0, 0, 0, 0.1);
+  -webkit-box-shadow: 0 5px 20px 0 rgba(0, 0, 0, 0.1);
+  -o-box-shadow: 0 5px 20px 0 rgba(0, 0, 0, 0.1);
+  -ms-box-shadow: 0 5px 20px 0 rgba(0, 0, 0, 0.1);
+}
+.table100.ver2 th {
+  font-family: sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  color: #fa4251;
+  line-height: 1.4;
+  background-color: transparent;
+}
+.table100.ver2 tr:hover td {
+  background-color: #ebebeb;
+  cursor: pointer;
+}
+.table100.ver2 td {
+  font-family: sans-serif;
+  font-size: 15px;
+  color: gray;
+  line-height: 1.4;
+}
+.table100.ver2 .table100-body tr {
+  border-bottom: 1px solid #f2f2f2;
+}
+.table100.ver2 {
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 0 40px 0 rgba(0, 0, 0, 0.15);
+  -moz-box-shadow: 0 0 40px 0 rgba(0, 0, 0, 0.15);
+  -webkit-box-shadow: 0 0 40px 0 rgba(0, 0, 0, 0.15);
+  -o-box-shadow: 0 0 40px 0 rgba(0, 0, 0, 0.15);
+  -ms-box-shadow: 0 0 40px 0 rgba(0, 0, 0, 0.15);
+}
+    </style>
+</head>
+<body>
+<div id="menu">
+    <ul>
+        <li><a href="/dashboard">Trang chủ</a></li>
+        <li><a href="/tintuc">Tin tức</a></li>
+        
+        <li>
+            <a>Học tập</a>
+            <ul class="sub-menu">
+                <li><a href="/hoctap/loptinchi">Lớp tín chỉ</a></li>
+                <li><a href="/hoctap/lophanhchinh">Lớp hành chính</a></li>
+                <li><a href="/hoctap/gochoctap">Kết quả học tập</a></li>
+            </ul>
+        </li>
+        <li><a href="/dichvumotcuasv">Dịch vụ một cửa</a></li>
+        <li><a href="/congnosinhvien">Công nợ</a></li>
+        <li>
+            <a>Thư viện</a>
+            <ul class="sub-menu">
+                <li><a href="/quanlythuviensinhvien/quanlyluanansinhvien">Nộp luận án</a></li>
+                <li><a href="/quanlythuviensinhvien/quanlyluanvansinhvien">Nộp luận văn</a></li>
+                <li><a href="/quanlythuviensinhvien/quanlykhoaluansinhvien">Nộp khoá luận/đồ án</a></li>
+            </ul>
+        </li>
+        <li>
+            <a>Tiện ích khác</a>
+            <ul class="sub-menu">
+                <li><a href="/tienichkhac/phanhoi">Phản hồi</a></li>
+                <li><a href="/tienichkhac/vanbanhuongdan">Văn bản hướng dẫn</a></li>
+                <li><a href="/tienichkhac/khaosat">Khảo sát trực tuyến</a></li>
+                <li><a href="/tienichkhac/khaibaosuckhoe">Khai báo y tế</a></li>
+                <li><a href="/tienichkhac/gioithieu">Giới thiệu</a></li>
+            </ul>
+        </li>
+        <li>
+            <a th:text="${user.hoten}"></a>
+            <ul class="sub-menu">
+                <li><a href="/account/center">Trang cá nhân</a></li>
+                <li><a href="/logout">Đăng xuất</a></li>
+            </ul>
+        </li>
+    </ul>
+</div>
+<div id="feedback" style="display:block;">
+    <div class="ClassName">Phản hồi</div>
+    <div class="ClassDecriptsion"><button onclick="show()">Thêm mới</button></div>
+    <div class="ListDecriptsion">Danh sách phản hồi</div>
+    <div class="table100 ver2 m-b-110">
+        <div class="table100-head">
+            <table>
+                <thead>
+                <tr class="row100 head">
+                    <th class="cell100 column1">STT</th>
+                    <th class="cell100 column2">Đơn vị nhận phản hồi</th>
+                    <th class="cell100 column3">Nội dung</th>
+                    <th class="cell100 column4">Nội dung phản hồi</th>
+                    <th class="cell100 column5">Ngày gửi</th>
+                </tr>
+                </thead>
+            </table>
+        </div>
+        <div class="table100-body js-pscroll ps ps--active-y">
+            <table>
+                <tbody>
+                <tr class="row100 body" th:each="data,state : ${feedbacks}">
+                    <td class="cell100 column1" th:text="${state.count}"></td>
+                    <td class="cell100 column2" th:text="${data.phongban}"></td>
+                    <td class="cell100 column3" th:text="${data.noidung}"></td>
+                    <th:block th:if="${data.noidungphanhoi}">
+                        <td class="cell100 column4" th:text="${data.noidungphanhoi}"></td>
+                    </th:block>
+                    <th:block th:unless="${data.noidungphanhoi}">
+                        <td class="cell100 column4">Chưa phản hồi!</td>
+                    </th:block>
+                    <td class="cell100 column5" th:text="${data.ngaytao}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div id="newfeedback" style="display:none;">
+    <div class="ClassName">Gửi phản hồi</div>
+    <div class="ClassDecriptsion"><button onclick="show()">Danh sách phản hồi</button></div>
+    <div class="container">
+        <form action="/tienichkhac/phanhoi" method="POST" modelAttribute="feedback">
+            <label for="phongban">Đơn vị nhận phản hồi</label>
+            <select id="phongban" name="phongban" th:with="phongban=${ {'Ban Giám đốc (TDT1-BGD)','Ban Giám đốc (TDT2-BGD)','Bồi dưỡng ngắn hạn (HDTN)','Bộ môn Marketing (VKT1-MR)','Bộ môn phát triển kỹ năng (VKT1-PTKN)','Cơ sở 2 tại Thành phố Hồ Chí Minh (VKH2)','Học viện (HVBC)','Học viện - Bắc (HBVH)','Học viện - Nam (HBVS)','Hội đồng Học viện (HDHV)','Khoa An toàn thông tin (KAT1)','Khoa Công nghệ thông tin 1 (KCN1)','Khoa Công nghệ thông tin 2 (KCN2)','Khoa Cơ bản 1 (KCB1)','Khoa Cơ bản 2 (KCB2)','Khoa Kỹ thuật điện tử 1 (KDT1)','Khoa Kỹ thuật điện tử 2 (KDT2)','Khoa Quản trị kinh doanh 1 (KQT1)','Khoa Quản trị kinh doanh 2 (KQT2)','Khoa Tài chính kế toán 1 (KTC1)','Khoa Viễn thông 1 (KVT1)','Khoa Viễn thông 2 (KVT2)','Khoa học công nghệ (KHCN)','Khoa Đa phương tiện (KDP1)','Khoa Đào tạo Sau đại học (KSD1)','Lãnh đạo Học viện (BGD2)','Lãnh đạo Học viện (BGD1)','Lãnh đạo Viện (VKH1-LD)','Lãnh đạo Viện (VCN1-LD)','Lãnh đạo Viện (VKT1-LD)','Phòng Chính trị và Công tác sinh viên (PSV1)','Phòng Công tác Sinh viên (PSV2)','Phòng Giáo vụ (PGV2)','Phòng Giáo vụ (PGV1)','Phòng Hợp tác và Chuyển giao công nghệ (VCN1-HTCGCN)','Phòng Khoa học công nghệ và Kế hoạch kinh doanh (VKH1-KHCNKHKD)','Phòng Kinh tế Tài chính (PKT2)','Phòng Kế hoạch - Đầu tư (PKH1)','Phòng Nghiên cứu Phát triển Dịch vụ (VCN1-NCPTDV)','Phòng Nghiên cứu Phát triển Hạ tầng và An toàn thông tin (VCN1-NCPTHTATTT)','Phòng Nghiên cứu Phát triển Ứng dụng đa phương tiện (VCN1-NCPTUDDPT)','Phòng Nghiên cứu Quản trị doanh nghiệp (VKT1-NCQTDN)','Phòng Nghiên cứu kỹ thuật và dịch vụ Viễn thông (VKH1-NCKTDVVT)','Phòng Nghiên cứu phát triển Công nghệ số (VKH1-NCPTCNS)','Phòng Nghiên cứu và Đào tạo Marketing (VKT1-NCDTMR)','Phòng Nghiên cứu Định mức Kinh tế kỹ thuật (VKT1-NCDMKTKT)','Phòng Quản lý Khoa học công nghệ và Hợp tác quốc tế (PQL1)','Phòng Tài chính - Kế toán (PKT1)','Phòng Tư vấn (TDT2-TV)','Phòng Tư vấn Thiết kế (VKH1-TVTK)','Phòng Tổ chức Hành chính (PTC2)','Phòng Tổ chức cán bộ - Lao động (PTC1)','Phòng Tổng hợp (VKT1-TH)','Phòng Tổng hợp (VKH1-TH)','Phòng Tổng hợp (TDT2-TH)','Phòng Tổng hợp (TDT1-TH)','Phòng Tổng hợp (VCN1-TH)','Phòng Xây dựng chương trình (TDT1-XDCT)','Phòng Đo lường, Kiểm định và Tiêu chuẩn chất lượng (VKH1-DLKDTCCL)','Phòng Đào tạo (TDT2-DT)','Phòng Đào tạo (PDT1)','Phòng Đào tạo doanh nghiệp (TDT1-DTDN)','Phòng Đào tạo hướng nghiệp (TDT1-DTHN)','Phòng Đào tạo và KHCN (PDT2)','Phòng Ứng dụng và Chuyển giao công nghệ (VKH1-UDCGCN)','Trung tâm Cơ sở vật chất và Dịch vụ (TDV2)','Trung tâm Dịch vụ (TDV1)','Trung tâm Khảo thí và Đảm bảo chất lượng giáo dục (TKT2)','Trung tâm Khảo thí và Đảm bảo chất lượng giáo dục (TKT1)','Trung tâm Thí nghiệm - Thực hành (TTN1)','Trung tâm Đào tạo Quốc tế (TQT1)','Trung tâm Đào tạo bưu chính viễn thông 1 (TDT1)','Trung tâm Đào tạo bưu chính viễn thông 2 (TDT2)','Tổ hỗ trợ dịch vụ (VCN1-HTDV)','Viện Công nghệ thông tin và Truyền thông (VCN1)','Viện Khoa học kỹ thuật Bưu điện (VKH1)','Viện Kinh tế Bưu điện (VKT1)','Văn phòng Học viện (VPH1)','Đào tạo dài hạn (HDTD)'} }">
+                <th:block th:each="data,state : ${phongban}">
+                    <option th:value="${data}" th:text="${data}"></option>
+                </th:block>
+            </select>
+
+            <label for="noidung">Nội dung phản hồi</label>
+            <textarea id="noidung" name="noidung" placeholder="Nhập nội dung" style="height:200px"></textarea>
+
+            <input type="submit" value="Gửi">
+        </form>
+    </div>
+</div>
+<script>
+function show() {
+  document.getElementById('newfeedback').style.display=document.getElementById('newfeedback').style.display=="block"?"none":"block";
+  document.getElementById('feedback').style.display=document.getElementById('feedback').style.display=="block"?"none":"block";
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Khảo sát trực tuyến</title>
+    <style>
+*{
+  margin:0;
+  padding:0;
+}
+body{
+  font-family: sans-serif;
+  background: #f0f2f5;
+}
+#menu ul {
+  list-style-type: none;
+  background: #001529;
+  text-align: center;
+}
+#menu ul li {
+  color: #fff;
+  display: inline-table;
+  width: 180px;
+  height: 48px;
+  line-height: 48px;
+  position: relative;
+}
+#menu ul li a {
+  color: #fff;
+  text-decoration: none;
+  display: block;
+}
+#menu ul li a:hover {
+  border-bottom-right-radius: 20px;
+  border-bottom-left-radius: 20px;
+  background: #cc0d00;
+  color: #001529;
+}
+#menu .sub-menu{
+  border-bottom-right-radius: 20px;
+  border-bottom-left-radius: 20px;
+  display: none;
+  position: absolute;
+}
+#menu ul li:hover .sub-menu{
+  display: block;
+  z-index: 2000;
+}
+#dangphattrien{
+  font-size: 50px;
+  padding: 70px;
+  text-align: center;
+}
+/*! CSS Used from: Embedded *//*! CSS Used from: https://slink.ptit.edu.vn/umi.98f016c7.css */*,:after,:before{box-sizing:border-box}[tabindex="-1"]:focus{outline:0!important}html [type=button]{-webkit-appearance:button}[type=search]{outline-offset:-2px;-webkit-appearance:none}::selection{color:#fff;background:#cc0d00}.ant-card{box-sizing:border-box;margin:0;padding:0;color:rgba(0,0,0,.85);font-size:14px;font-variant:tabular-nums;line-height:1.5715;list-style:none;font-feature-settings:"tnum","tnum";position:relative;background:#fff;border-radius:2px}.ant-card-bordered{border:1px solid #f0f0f0}.ant-card-head{min-height:48px;margin-bottom:-1px;padding:0 24px;color:rgba(0,0,0,.85);font-weight:500;font-size:16px;background:0 0;border-bottom:1px solid #f0f0f0;border-radius:2px 2px 0 0}.ant-card-head:before{display:table;content:""}.ant-card-head:after{display:table;clear:both;content:""}.ant-card-head-wrapper{display:flex;align-items:center}.ant-card-head-title{display:inline-block;flex:1 1;padding:16px 0;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}.ant-card-body{padding:24px}.ant-card-body:before{display:table;content:""}.ant-card-body:after{display:table;clear:both;content:""}.ant-spin-nested-loading{position:relative}.ant-spin-container{position:relative;transition:opacity .3s}.ant-spin-container:after{position:absolute;top:0;right:0;bottom:0;left:0;z-index:10;width:100%;height:100%;background:#fff;opacity:0;transition:all .3s;content:"";pointer-events:none}.ant-list{box-sizing:border-box;margin:0;padding:0;color:rgba(0,0,0,.85);font-size:14px;font-variant:tabular-nums;line-height:1.5715;list-style:none;font-feature-settings:"tnum","tnum";position:relative}.ant-list *{outline:0}.ant-list-empty-text{padding:16px;color:rgba(0,0,0,.25);font-size:14px;text-align:center}.ant-list-bordered{border:1px solid #d9d9d9;border-radius:2px}.ant-empty{margin:0 8px;font-size:14px;line-height:1.5715;text-align:center}.ant-empty-image{height:100px;margin-bottom:8px}.ant-empty-image svg{height:100%;margin:auto}.ant-empty-normal{margin:32px 0;color:rgba(0,0,0,.25)}.ant-empty-normal .ant-empty-image{height:40px}.ant-empty-img-simple-ellipse{fill:#f5f5f5}.ant-empty-img-simple-g{stroke:#d9d9d9}.ant-empty-img-simple-path{fill:#fafafa}::-webkit-scrollbar{width:1px}::-webkit-scrollbar{width:6px;height:6px}::-webkit-scrollbar-track{background:0 0}::-webkit-scrollbar-thumb{background:#888}::-webkit-scrollbar-thumb:hover{background:#555}.ant-card-head-title{white-space:pre-wrap}/*! CSS Used from: https://slink.ptit.edu.vn/p__QuanLySachEd__DangKySach.120a61be.chunk.css */.ant-card.ant-card-bordered{width:100%!important}
+    </style>
+</head>
+<body>
+<div id="menu">
+    <ul>
+        <li><a href="/dashboard">Trang chủ</a></li>
+        <li><a href="/tintuc">Tin tức</a></li>
+
+        <li>
+            <a>Học tập</a>
+            <ul class="sub-menu">
+                <li><a href="/hoctap/loptinchi">Lớp tín chỉ</a></li>
+                <li><a href="/hoctap/lophanhchinh">Lớp hành chính</a></li>
+                <li><a href="/hoctap/gochoctap">Kết quả học tập</a></li>
+            </ul>
+        </li>
+        <li><a href="/dichvumotcuasv">Dịch vụ một cửa</a></li>
+        <li><a href="/congnosinhvien">Công nợ</a></li>
+        <li>
+            <a>Thư viện</a>
+            <ul class="sub-menu">
+                <li><a href="/quanlythuviensinhvien/quanlyluanansinhvien">Nộp luận án</a></li>
+                <li><a href="/quanlythuviensinhvien/quanlyluanvansinhvien">Nộp luận văn</a></li>
+                <li><a href="/quanlythuviensinhvien/quanlykhoaluansinhvien">Nộp khoá luận/đồ án</a></li>
+            </ul>
+        </li>
+        <li>
+            <a>Tiện ích khác</a>
+            <ul class="sub-menu">
+                <li><a href="/tienichkhac/phanhoi">Phản hồi</a></li>
+                <li><a href="/tienichkhac/vanbanhuongdan">Văn bản hướng dẫn</a></li>
+                <li><a href="/tienichkhac/khaosat">Khảo sát trực tuyến</a></li>
+                <li><a href="/tienichkhac/khaibaosuckhoe">Khai báo y tế</a></li>
+                <li><a href="/tienichkhac/gioithieu">Giới thiệu</a></li>
+            </ul>
+        </li>
+        <li>
+            <a th:text="${name}"></a>
+            <ul class="sub-menu">
+                <li><a href="/account/center">Trang cá nhân</a></li>
+                <li><a href="/logout">Đăng xuất</a></li>
+            </ul>
+        </li>
+    </ul>
+</div>
+<div style="padding:50px;">
+    <div>
+        <div class="ant-card ant-card-bordered">
+            <div class="ant-card-head">
+                <div class="ant-card-head-wrapper">
+                    <div class="ant-card-head-title">Khảo sát trực tuyến</div>
+                </div>
+            </div>
+            <div class="ant-card-body">
+                <div class="ant-list ant-list-split ant-list-bordered ant-list-something-after-last-item">
+                    <div class="ant-spin-nested-loading">
+                        <div class="ant-spin-container">
+                            <div style="" class="ant-list-empty-text">
+                                <div class="ant-empty ant-empty-normal">
+                                    <div class="ant-empty-image"><svg class="ant-empty-img-simple" width="64" height="41" viewBox="0 0 64 41" xmlns="http://www.w3.org/2000/svg">
+                                        <g transform="translate(0 1)" fill="none" fill-rule="evenodd">
+                                            <ellipse class="ant-empty-img-simple-ellipse" cx="32" cy="33" rx="32" ry="7"></ellipse>
+                                            <g class="ant-empty-img-simple-g" fill-rule="nonzero">
+                                                <path d="M55 12.76L44.854 1.258C44.367.474 43.656 0 42.907 0H21.093c-.749 0-1.46.474-1.947 1.257L9 12.761V22h46v-9.24z"></path>
+                                                <path d="M41.613 15.931c0-1.605.994-2.93 2.227-2.931H55v18.137C55 33.26 53.68 35 52.05 35h-40.1C10.32 35 9 33.259 9 31.137V13h11.16c1.233 0 2.227 1.323 2.227 2.928v.022c0 1.605 1.005 2.901 2.237 2.901h14.752c1.232 0 2.237-1.308 2.237-2.913v-.007z" class="ant-empty-img-simple-path"></path>
+                                            </g>
+                                        </g>
+                                    </svg></div>
+                                    <div class="ant-empty-description">Trống</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Lớp hành chính</title>
+    <style>
+*{
+  margin:0;
+  padding:0;
+}
+body{
+  font-family: sans-serif;
+  background: #f0f2f5;
+}
+#menu ul {
+  list-style-type: none;
+  background: #001529;
+  text-align: center;
+}
+#menu ul li {
+  color: #fff;
+  display: inline-table;
+  width: 500px;
+  height: 48px;
+  line-height: 48px;
+  position: relative;
+}
+#menu ul li a {
+  color: #fff;
+  text-decoration: none;
+  display: block;
+}
+#menu ul li a:hover {
+  border-bottom-right-radius: 20px;
+  border-bottom-left-radius: 20px;
+  background: #cc0d00;
+  color: #001529;
+}
+#menu .sub-menu{
+  border-bottom-right-radius: 20px;
+  border-bottom-left-radius: 20px;
+  display: none;
+  position: absolute;
+}
+#menu ul li:hover .sub-menu{
+  display: block;
+  z-index: 2000;
+}
+input[type=text], select, textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  margin-top: 6px;
+  margin-bottom: 16px;
+  resize: vertical;
+}
+
+input[type=submit]{
+  background-color: #cc0d00;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 100px;
+  margin-left: calc(50% - 50px);
+}
+button{
+  background-color: #cc0d00;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+input[type=submit]:hover {
+  background-color: #45a049;
+}
+
+.container {
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  padding: 20px;
+}
+div.ClassName{
+  padding-left:40px;
+  padding-top:40px;
+  font-family:sans-serif;
+  font-size:30px;
+}
+div.ClassDecriptsion{
+  padding-left:40px;
+  padding-top:10px;
+  padding-bottom:40px;
+  font-family:sans-serif;
+}
+div.ListDecriptsion{
+  padding:20px;
+  font-family:sans-serif;
+  font-size:30px;
+}
+table {
+  border-collapse: collapse;
+}
+th {
+  text-align: left;
+}
+.ps {
+  overflow: hidden !important;
+  overflow-anchor: none;
+  -ms-overflow-style: none;
+  touch-action: auto;
+  -ms-touch-action: auto;
+}
+.m-b-110 {
+  margin-bottom: 110px;
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.js-pscroll {
+  position: relative;
+  overflow: hidden;
+}
+.table100 {
+  background-color: #fff;
+}
+table {
+  width: 100%;
+}
+td,
+th {
+  font-weight: unset;
+  padding-right: 10px;
+}
+.column1{width:5%;text-align:center;}
+.column2{width:15%;text-align:center;}
+.column3{width:35%;text-align:center;}
+.column4{width:35%;text-align:center;}
+.column5{width:10%;text-align:center;}
+.table100-head th {
+  padding-top: 18px;
+  padding-bottom: 18px;
+}
+.table100-body td {
+  padding-top: 16px;
+  padding-bottom: 16px;
+}
+.table100 {
+  position: relative;
+  padding-top: 60px;
+}
+.table100-head {
+  position: absolute;
+  width: 100%;
+  top: 0;
+  left: 0;
+}
+.table100-body {
+  overflow: auto;
+}
+.table100.ver2 .table100-head {
+  box-shadow: 0 5px 20px 0 rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 0 5px 20px 0 rgba(0, 0, 0, 0.1);
+  -webkit-box-shadow: 0 5px 20px 0 rgba(0, 0, 0, 0.1);
+  -o-box-shadow: 0 5px 20px 0 rgba(0, 0, 0, 0.1);
+  -ms-box-shadow: 0 5px 20px 0 rgba(0, 0, 0, 0.1);
+}
+.table100.ver2 th {
+  font-family: sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  color: #fa4251;
+  line-height: 1.4;
+  background-color: transparent;
+}
+.table100.ver2 tr:hover td {
+  background-color: #ebebeb;
+  cursor: pointer;
+}
+.table100.ver2 td {
+  font-family: sans-serif;
+  font-size: 15px;
+  color: gray;
+  line-height: 1.4;
+}
+.table100.ver2 .table100-body tr {
+  border-bottom: 1px solid #f2f2f2;
+}
+.table100.ver2 {
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 0 40px 0 rgba(0, 0, 0, 0.15);
+  -moz-box-shadow: 0 0 40px 0 rgba(0, 0, 0, 0.15);
+  -webkit-box-shadow: 0 0 40px 0 rgba(0, 0, 0, 0.15);
+  -o-box-shadow: 0 0 40px 0 rgba(0, 0, 0, 0.15);
+  -ms-box-shadow: 0 0 40px 0 rgba(0, 0, 0, 0.15);
+}
+    </style>
+    <!--<link rel="stylesheet" th:href="@{/assets/css/table.css}">-->
+</head>
+<body>
+<div id="menu">
+    <ul>
+        <li><a href="/danhsachnhomlop">Học viện Công nghệ Bưu chính Viễn thông</a></li>
+        <li><a href="/logout">Đăng xuất</a></li>
+    </ul>
+</div>
+<div class="ClassName" th:text="${'Nhóm lớp học: '+nhommonhoc}"></div>
+<div class="ClassDecriptsion">
+    Sĩ số: <b th:text="${users.size()+' sinh viên'}"></b><br><br>
+    <div style="display: flex; flex-wrap: wrap;">
+        <form th:action="${'/themsinhvien/'+nhommonhoc}" method="POST" style="flex-basis: 10%;">
+            <button type="submit">Thêm sinh viên</button>
+        </form>
+        <form th:action="${'/xuatbangdiem/'+nhommonhoc}" method="GET" style="flex-basis: 10%;">
+            <button type="submit">Xuất bảng điểm</button>
+        </form>
+    </div>
+</div>
+<div class="ListDecriptsion">Danh sách sinh viên</div>
+<div class="table100 ver2 m-b-110">
+    <div class="table100-head">
+        <table>
+            <thead>
+            <tr class="row100 head">
+                <th class="cell100 column1">STT</th>
+                <th class="cell100 column2">Họ Tên</th>
+                <th class="cell100 column3">Mã Sinh Viên</th>
+                <th class="cell100 column4">Email</th>
+                <th class="cell100 column5">Giới tính</th>
+            </tr>
+            </thead>
+        </table>
+    </div>
+    <div class="table100-body js-pscroll ps ps--active-y">
+        <table>
+            <tbody>
+            <th:block th:each="data,state : ${users}">
+                <tr class="row100 body" th:attr="onclick=${'location.pathname=''/quanlydiem/'+nhommonhoc+'/'+data.getCustomUserDetail().getMasv()+''';'}">
+                    <td class="cell100 column1" th:text="${state.count}"></td>
+                    <td class="cell100 column2" th:text="${data.getCustomUserDetail().getHoten()}"></td>
+                    <td class="cell100 column3" th:text="${data.getCustomUserDetail().getMasv()}"></td>
+                    <td class="cell100 column4" th:text="${data.getCustomUserDetail().getEmail()}"></td>
+                    <td class="cell100 column5" th:text="${data.getCustomUserDetail().isGioitinh()}?'Nam':'Nữ'"></td>
+                </tr>
+            </th:block>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,199 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script>document.getElementsByTagName("html")[0].className += " js";</script>
+  <link rel="stylesheet" th:href="@{/assets/css/style.css}">
+  <title>Dashboard</title>
+    <style>
+*{
+  margin:0;
+  padding:0;
+}
+body{
+  font-family: sans-serif;
+  background: #f0f2f5;
+}
+#menu ul {
+  list-style-type: none;
+  background: #001529;
+  text-align: center;
+}
+#menu ul li {
+  color: #fff;
+  display: inline-table;
+  width: 180px;
+  height: 48px;
+  line-height: 48px;
+  position: relative;
+}
+#menu ul li a {
+  color: #fff;
+  text-decoration: none;
+  display: block;
+}
+#menu ul li a:hover {
+  border-bottom-right-radius: 20px;
+  border-bottom-left-radius: 20px;
+  background: #cc0d00;
+  color: #001529;
+}
+#menu .sub-menu{
+  border-bottom-right-radius: 20px;
+  border-bottom-left-radius: 20px;
+  display: none;
+  position: absolute;
+}
+#menu ul li:hover .sub-menu{
+  display: block;
+  z-index: 2000;
+}
+.weeknumber {
+  text-align: center;
+}
+.weeknumber a {
+  color: red;
+  display: inline-table;
+  font-size: 50px;
+  text-decoration: none;
+  text-align: center;
+}
+.weeknumber span{
+  text-align: center;
+  font-size: 50px;
+}
+    </style>
+</head>
+<body>
+<div id="menu">
+    <ul style="font-size:16px;">
+        <li><a href="/dashboard">Trang chủ</a></li>
+        <li><a href="/tintuc">Tin tức</a></li>
+        
+        <li>
+            <a>Học tập</a>
+            <ul class="sub-menu">
+                <li><a href="/hoctap/loptinchi">Lớp tín chỉ</a></li>
+                <li><a href="/hoctap/lophanhchinh">Lớp hành chính</a></li>
+                <li><a href="/hoctap/gochoctap">Kết quả học tập</a></li>
+            </ul>
+        </li>
+        <li><a href="/dichvumotcuasv">Dịch vụ một cửa</a></li>
+        <li><a href="/congnosinhvien">Công nợ</a></li>
+        <li>
+            <a>Thư viện</a>
+            <ul class="sub-menu">
+                <li><a href="/quanlythuviensinhvien/quanlyluanansinhvien">Nộp luận án</a></li>
+                <li><a href="/quanlythuviensinhvien/quanlyluanvansinhvien">Nộp luận văn</a></li>
+                <li><a href="/quanlythuviensinhvien/quanlykhoaluansinhvien">Nộp khoá luận/đồ án</a></li>
+            </ul>
+        </li>
+        <li>
+            <a>Tiện ích khác</a>
+            <ul class="sub-menu">
+                <li><a href="/tienichkhac/phanhoi">Phản hồi</a></li>
+                <li><a href="/tienichkhac/vanbanhuongdan">Văn bản hướng dẫn</a></li>
+                <li><a href="/tienichkhac/khaosat">Khảo sát trực tuyến</a></li>
+                <li><a href="/tienichkhac/khaibaosuckhoe">Khai báo y tế</a></li>
+                <li><a href="/tienichkhac/gioithieu">Giới thiệu</a></li>
+            </ul>
+        </li>
+        <li>
+            <a th:text="${name}"></a>
+            <ul class="sub-menu">
+                <li><a href="/account/center">Trang cá nhân</a></li>
+                <li><a href="/logout">Đăng xuất</a></li>
+            </ul>
+        </li>
+    </ul>
+</div>
+<br>
+<div class="weeknumber">
+  <a th:href="@{|/dashboard?start=${start.plusDays(-7)}&end=${end.plusDays(-7)}|}"><</a>
+  <span th:text="${'Thời khoá biểu từ '+ start +' đến '+ end}"></span>
+  <a th:href="@{|/dashboard?start=${start.plusDays(7)}&end=${end.plusDays(7)}|}">></a>
+</div>
+  <div class="cd-schedule cd-schedule--loading margin-top-lg margin-bottom-lg js-cd-schedule" style="border: 3px solid;">
+    <div class="cd-schedule__timeline">
+      <ul>
+        <li><span style="font-size:20px;">07:00</span></li>
+		<li><span></span></li>
+		<li><span></span></li>
+		<li><span></span></li>
+        <li><span style="font-size:20px;">09:00</span></li>
+		<li><span></span></li>
+		<li><span></span></li>
+		<li><span></span></li>
+        <li><span style="font-size:20px;">11:00</span></li>
+		<li><span></span></li>
+        <li><span style="font-size:20px;">12:00</span></li>
+		<li><span></span></li>
+		<li><span></span></li>
+		<li><span></span></li>
+        <li><span style="font-size:20px;">14:00</span></li>
+		<li><span></span></li>
+		<li><span></span></li>
+		<li><span></span></li>
+        <li><span style="font-size:20px;">16:00</span></li>
+		<li><span></span></li>
+		<li><span></span></li>
+		<li><span></span></li>
+        <li><span style="font-size:20px;">18:00</span></li>
+		<li><span></span></li>
+		<li><span></span></li>
+		<li><span></span></li>
+        <li><span style="font-size:20px;">20:00</span></li>
+      </ul>
+    </div> <!-- .cd-schedule__timeline -->
+  
+    <div class="cd-schedule__events">
+      <ul th:with="dayofWeekend=${ {'Thứ 2','Thứ 3','Thứ 4','Thứ 5','Thứ 6','Thứ 7','Chủ nhật'} }">
+        <li class="cd-schedule__group" th:each="data,state : ${timetable}">
+          <div class="cd-schedule__top-info" style="border: 3px solid;"><span style="font-size:40px;" th:text="${dayofWeekend[state.index]}"></span></div>
+  
+          <ul>
+            <th:block th:each="data1,state1 : ${data}">
+            <li class="cd-schedule__event" th:if="${data1}">
+              <th:block th:if="${state1.index<2}" >
+              <a th:data-start="${#numbers.formatInteger((7+state1.index*2),2)+':00'}" th:data-end="${#numbers.formatInteger((9+state1.index*2),2)+':00'}" th:data-content="${'Mã môn học: ' + data1.getString('mamonhoc') +'<br>Tên môn học: ' + data1.getString('tenmonhoc') +'<br>Số tín chỉ: ' + data1.getInt('sotinchi')+'<br>Phòng học: ' + data1.getString('phonghoc') + '<br>Lớp: ' + data1.getString('lop') + '<br>Ngày: ' + data1.getString('ngay') + '<br>Giảng viên: ' + data1.getString('tengiangvien')}" th:data-event="${'event-'+(state1.index%4+1)}" href="#0">
+                <em class="cd-schedule__name" th:text="${data1.getString('tenmonhoc')}"></em>
+              </a>
+              </th:block>
+              <th:block th:unless="${state1.index<2}" >
+                <a th:data-start="${#numbers.formatInteger((8+state1.index*2),2)+':00'}" th:data-end="${#numbers.formatInteger((10+state1.index*2),2)+':00'}" th:data-content="${'Mã môn học: ' + data1.getString('mamonhoc') +'<br>Tên môn học: ' + data1.getString('tenmonhoc')+'<br>Số tín chỉ: ' + data1.getInt('sotinchi')+'<br>Phòng học: ' + data1.getString('phonghoc') + '<br>Lớp: ' + data1.getString('lop') + '<br>Ngày: ' + data1.getString('ngay') + '<br>Giảng viên: ' + data1.getString('tengiangvien')}" th:data-event="${'event-'+(state1.index%4+1)}" href="#0">
+                  <em class="cd-schedule__name" th:text="${data1.getString('tenmonhoc')}"></em>
+                </a>
+              </th:block>
+            </li>
+            </th:block>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  
+    <div class="cd-schedule-modal">
+      <header class="cd-schedule-modal__header">
+        <div class="cd-schedule-modal__content">
+          <span class="cd-schedule-modal__date"></span>
+          <h3 class="cd-schedule-modal__name"></h3>
+        </div>
+  
+        <div class="cd-schedule-modal__header-bg"></div>
+      </header>
+  
+      <div class="cd-schedule-modal__body">
+        <div class="cd-schedule-modal__event-info"></div>
+        <div class="cd-schedule-modal__body-bg"></div>
+      </div>
+  
+      <a href="#0" class="cd-schedule-modal__close text-replace">Close</a>
+    </div>
+  
+    <div class="cd-schedule__cover-layer"></div>
+  </div> <!-- .cd-schedule -->
+
+  <script th:src="@{/assets/js/util.js}"></script> <!-- util functions included in the CodyHouse framework -->
+  <script th:src="@{/assets/js/main.js}"></script>
+</body>
+</html>

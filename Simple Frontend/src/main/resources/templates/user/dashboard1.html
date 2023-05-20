@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+    <style>
+*{
+  margin:0;
+  padding:0;
+}
+body{
+  font-family: sans-serif;
+  background: #f0f2f5;
+}
+#menu ul {
+  list-style-type: none;
+  background: #001529;
+  text-align: center;
+}
+#menu ul li {
+  color: #fff;
+  display: inline-table;
+  width: 180px;
+  height: 48px;
+  line-height: 48px;
+  position: relative;
+}
+#menu ul li a {
+  color: #fff;
+  text-decoration: none;
+  display: block;
+}
+#menu ul li a:hover {
+  border-bottom-right-radius: 20px;
+  border-bottom-left-radius: 20px;
+  background: #cc0d00;
+  color: #001529;
+}
+#menu .sub-menu{
+  border-bottom-right-radius: 20px;
+  border-bottom-left-radius: 20px;
+  display: none;
+  position: absolute;
+}
+#menu ul li:hover .sub-menu{
+  display: block;
+  z-index: 2000;
+}
+table{
+  margin: auto;
+}
+.tooltip {
+  position: relative;
+  display: inline-block;
+}
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 250px;
+  background-color: black;
+  color: #fff;
+  border-radius: 6px;
+  padding: 5px 0;
+  position: absolute;
+  z-index: 1;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+.weeknumber {
+  text-align: center;
+}
+.weeknumber a {
+  color: red;
+  display: inline-table;
+  font-size: 50px;
+  text-decoration: none;
+  text-align: center;
+}
+.weeknumber span{
+  text-align: center;
+  font-size: 50px;
+}
+    </style>
+</head>
+<body>
+<div id="menu">
+    <ul>
+        <li><a href="/dashboard">Trang chủ</a></li>
+        <li><a href="/tintuc">Tin tức</a></li>
+        
+        <li>
+            <a>Học tập</a>
+            <ul class="sub-menu">
+                <li><a href="/hoctap/loptinchi">Lớp tín chỉ</a></li>
+                <li><a href="/hoctap/lophanhchinh">Lớp hành chính</a></li>
+                <li><a href="/hoctap/gochoctap">Kết quả học tập</a></li>
+            </ul>
+        </li>
+        <li><a href="/dichvumotcuasv">Dịch vụ một cửa</a></li>
+        <li><a href="/congnosinhvien">Công nợ</a></li>
+        <li>
+            <a>Thư viện</a>
+            <ul class="sub-menu">
+                <li><a href="/quanlythuviensinhvien/quanlyluanansinhvien">Nộp luận án</a></li>
+                <li><a href="/quanlythuviensinhvien/quanlyluanvansinhvien">Nộp luận văn</a></li>
+                <li><a href="/quanlythuviensinhvien/quanlykhoaluansinhvien">Nộp khoá luận/đồ án</a></li>
+            </ul>
+        </li>
+        <li>
+            <a>Tiện ích khác</a>
+            <ul class="sub-menu">
+                <li><a href="/tienichkhac/phanhoi">Phản hồi</a></li>
+                <li><a href="/tienichkhac/vanbanhuongdan">Văn bản hướng dẫn</a></li>
+                <li><a href="/tienichkhac/khaosat">Khảo sát trực tuyến</a></li>
+                <li><a href="/tienichkhac/khaibaosuckhoe">Khai báo y tế</a></li>
+                <li><a href="/tienichkhac/gioithieu">Giới thiệu</a></li>
+            </ul>
+        </li>
+        <li>
+            <a th:text="${name}"></a>
+            <ul class="sub-menu">
+                <li><a href="/account/center">Trang cá nhân</a></li>
+                <li><a href="/logout">Đăng xuất</a></li>
+            </ul>
+        </li>
+    </ul>
+</div>
+<br>
+<div class="weeknumber">
+    <a th:href="@{|/dashboard?start=${start.plusDays(-7)}&end=${end.plusDays(-7)}|}"><</a>
+    <span th:text="${'Thời khoá biểu từ '+ start +' đến '+ end}"></span>
+    <a th:href="@{|/dashboard?start=${start.plusDays(7)}&end=${end.plusDays(7)}|}">></a>
+</div>
+<table border="5" cellspacing="0" align="center">
+    <tr>
+        <td align="center" height="50" width="100"></td>
+        <td align="center" height="50" width="100"><b>7:00-9:00</b></td>
+        <td align="center" height="50" width="100"><b>9:00-11:00</b></td>
+        <td rowspan="8" align="center" height="50" width="100"><h2>L<br>U<br>N<br>C<br>H</h2></td>
+        <td align="center" height="50" width="100"><b>12:00-14:00</b></td>
+        <td align="center" height="50" width="100"><b>14:00-16:00</b></td>
+        <td align="center" height="50" width="100"><b>16:00-18:00</b></td>
+        <td align="center" height="50" width="100"><b>18:00-20:00</b></td>
+    </tr>
+    <tr th:each="data,state : ${timetable}">
+        <td align="center" height="50"><b th:text="${'Thứ '+(state.count+1)}"></b></td>
+        <td align="center" height="50" th:each="data1,state1 : ${data}">
+            <th:block th:if="${data1}">
+            <div class="tooltip">
+                <th:block th:text="${data1.tenmonhoc}"></th:block>
+                <span class="tooltiptext">
+                    <table>
+                        <tbody>
+                        <tr><td>Mã môn học:</td><td th:text="${data1.mamonhoc}"></td><tr>
+                        <tr><td>Phòng học:</td><td th:text="${data1.phonghoc}">403-A2</td></tr>
+                        <tr><td>Giảng viên:</td><td th:text="${data1.giangvien}">V.M.Mạnh</td></tr>
+                        <tr><td>Lớp:</td><td th:text="${data1.lop}">D20-040</td></tr>
+                        <tbody>
+                    </table>
+              </span>
+            </div>
+            </th:block>
+        </td>
+    </tr>
+
+</table>
+</body>
+</html>

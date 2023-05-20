@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Lớp hành chính</title>
+    <style>
+*{
+  margin:0;
+  padding:0;
+}
+body{
+  font-family: sans-serif;
+  background: #f0f2f5;
+}
+#menu ul {
+  list-style-type: none;
+  background: #001529;
+  text-align: center;
+}
+#menu ul li {
+  color: #fff;
+  display: inline-table;
+  width: 500px;
+  height: 48px;
+  line-height: 48px;
+  position: relative;
+}
+#menu ul li a {
+  color: #fff;
+  text-decoration: none;
+  display: block;
+}
+#menu ul li a:hover {
+  border-bottom-right-radius: 20px;
+  border-bottom-left-radius: 20px;
+  background: #cc0d00;
+  color: #001529;
+}
+#menu .sub-menu{
+  border-bottom-right-radius: 20px;
+  border-bottom-left-radius: 20px;
+  display: none;
+  position: absolute;
+}
+#menu ul li:hover .sub-menu{
+  display: block;
+  z-index: 2000;
+}
+    </style>
+    <link rel="stylesheet" th:href="@{/assets/css/table.css}">
+</head>
+<body>
+<div id="menu">
+    <ul>
+        <li><a href="/danhsachnhomlop">Học viện Công nghệ Bưu chính Viễn thông</a></li>
+        <li><a href="/logout">Đăng xuất</a></li>
+    </ul>
+</div>
+<div class="ClassName" style="padding:40px;">Danh sách lớp giảng dạy<br></div>
+<div class="table100 ver2 m-b-110">
+    <div class="table100-head">
+        <table>
+            <thead>
+            <tr class="row100 head">
+                <th class="cell100 column1">STT</th>
+                <th class="cell100 column2">Tên môn</th>
+                <th class="cell100 column3">Mã lớp học</th>
+            </tr>
+            </thead>
+        </table>
+    </div>
+    <div class="table100-body js-pscroll ps ps--active-y">
+        <table>
+            <tbody>
+            <th:block th:each="data,state : ${nhommonhoc}">
+                <tr class="row100 body" th:attr="onclick=${'location.pathname=''/quanlysinhvien/'+data[0]+''';'}">
+                    <td class="cell100 column1" th:text="${state.count}"></td>
+                    <td class="cell100 column2" th:text="${monHocRepository.findById(data[1]).get().getTenmonhoc()}"></td>
+                    <td class="cell100 column3" th:text="${data[0]}"></td>
+                </tr>
+            </th:block>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>
