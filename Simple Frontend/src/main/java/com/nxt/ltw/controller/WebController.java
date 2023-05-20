@@ -235,12 +235,13 @@ public class WebController {
     String PostPhanhoi(Feedback feedback, @CookieValue(name = "JSESSIONID") String JSESSIONID,Model model){
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+        headers.add(HttpHeaders.COOKIE,"JSESSIONID="+JSESSIONID);
         MultiValueMap<String, String> formData = new LinkedMultiValueMap<>();
-        formData.add("noidung", feedback.getNoidung());
         formData.add("phongban", feedback.getPhongban());
+        formData.add("noidung", feedback.getNoidung());
         HttpEntity<MultiValueMap<String, String>> requestEntity = new HttpEntity<>(formData, headers);
-        rest.exchange("http://localhost:8080/api/tienichkhac/phanhoi",HttpMethod.POST, requestEntity, String.class);
-        return "/user/tienichkhac/phanhoi";
+        ResponseEntity<ResponseObject> response = rest.postForEntity("http://localhost:8080/api/tienichkhac/phanhoi", requestEntity, ResponseObject.class);
+        return "redirect:/tienichkhac/phanhoi";
     }
     @GetMapping("/tienichkhac/vanbanhuongdan")
     String vanbanhuongdan(@CookieValue(name = "JSESSIONID") String JSESSIONID,Model model){
