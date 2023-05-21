@@ -10,6 +10,7 @@ import jakarta.servlet.http.HttpSession;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONString;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.*;
 import org.springframework.stereotype.Controller;
@@ -319,43 +320,104 @@ public class WebController {
     }
 
     @GetMapping("/danhsachnhomlop")
-    String danhsachnhomlop(Model model){
-        
+    String danhsachnhomlop(@CookieValue(name = "JSESSIONID") String JSESSIONID,Model model){
+        HttpHeaders headers = new HttpHeaders();
+        headers.add(HttpHeaders.COOKIE,"JSESSIONID="+JSESSIONID);
+        String response = rest.exchange("http://localhost:8080/api/danhsachnhomlop",HttpMethod.GET, new HttpEntity(headers), String.class).getBody();
+        JSONArray dataJson = new JSONObject(response).getJSONArray("data");
+
+        model.addAttribute("nhommonhoc",dataJson);
         return "/admin/danhsachnhomlop";
     }
     @GetMapping("/quanlysinhvien/{nhommonhoc}")
-    String quanlysinhvien(@PathVariable String nhommonhoc, Model model){
+    String quanlysinhvien(@PathVariable String nhommonhoc, @CookieValue(name = "JSESSIONID") String JSESSIONID,Model model){
+        model.addAttribute("nhommonhoc",nhommonhoc);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add(HttpHeaders.COOKIE,"JSESSIONID="+JSESSIONID);
+        String response = rest.exchange("http://localhost:8080/api/quanlysinhvien/"+nhommonhoc,HttpMethod.GET, new HttpEntity(headers), String.class).getBody();
+        JSONArray dataJson = new JSONObject(response).getJSONArray("data");
+        model.addAttribute("users",dataJson);
         return "/admin/quanlysinhvien";
     }
     @PostMapping("/themsinhvien/{nhommonhoc}")
     String themsinhvienForm(@PathVariable String nhommonhoc, Model model){
+        model.addAttribute("nhommonhoc",nhommonhoc);
         return "/admin/themsinhvien";
     }
     @GetMapping("/themsinhvien")
-    String themsinhvien(@RequestParam String nhommonhoc, @RequestParam String msv, Model model){
-        //return adminService.handleThemsinhvien(nhommonhoc, msv,model);
-        return "";
+    String themsinhvien(@RequestParam String nhommonhoc, @RequestParam String msv, @CookieValue(name = "JSESSIONID") String JSESSIONID,Model model){
+        HttpHeaders headers = new HttpHeaders();
+        headers.add(HttpHeaders.COOKIE,"JSESSIONID="+JSESSIONID);
+        String response = rest.exchange("http://localhost:8080/api/themsinhvien?nhommonhoc="+nhommonhoc+"&msv="+msv,HttpMethod.GET,new HttpEntity(headers), String.class).getBody();
+        JSONObject resJson = new JSONObject(response);
+        if(!resJson.getString("status").equals("OK")){
+            model.addAttribute("error",true);
+            model.addAttribute("errMess",resJson.getString("message"));
+            model.addAttribute("nhommonhoc",nhommonhoc);
+            model.addAttribute("msv",msv);
+            return "/admin/themsinhvien";
+        }else{
+            return "redirect:/quanlysinhvien/"+nhommonhoc;
+        }
     }
     @GetMapping("/quanlydiem/{nhommonhoc}/{msv}")
-    String quanlydiemForm(@PathVariable String nhommonhoc,@PathVariable String msv, Model model){
+    String quanlydiemForm(@PathVariable String nhommonhoc,@PathVariable String msv, @CookieValue(name = "JSESSIONID") String JSESSIONID,Model model){
+        HttpHeaders headers = new HttpHeaders();
+        headers.add(HttpHeaders.COOKIE,"JSESSIONID="+JSESSIONID);
+        String res = rest.exchange("http://localhost:8080/api/quanlydiem/"+nhommonhoc+"/"+msv,HttpMethod.GET,new HttpEntity(headers), String.class).getBody();
+        JSONObject resJson = new JSONObject(res).getJSONObject("data");
+        model.addAttribute("hoten",resJson.getString("hoten"));
+        model.addAttribute("msv",resJson.getString("msv"));
+        model.addAttribute("nhommonhoc",resJson.getString("nhommonhoc"));
+        model.addAttribute("diem_chuyencan",resJson.getDouble("diem_chuyencan"));
+        model.addAttribute("diem_bai_tap",resJson.getDouble("diem_bai_tap"));
+        model.addAttribute("diem_trung_binh_kiem_tra_tren_lop",resJson.getDouble("diem_trung_binh_kiem_tra_tren_lop"));
+        model.addAttribute("diem_thi_nghiem",resJson.getDouble("diem_thi_nghiem"));
+        model.addAttribute("diem_cuoi_ky",resJson.getDouble("diem_cuoi_ky"));
+        model.addAttribute("diem_tong_ket",resJson.getDouble("diem_tong_ket"));
         return "/admin/quanlydiem";
     }
     @PostMapping("/quanlydiem")
-    String quanlydiem(@ModelAttribute("CapNhatDiem") DiemThanhPhanDTO diemThanhPhan, Model model){
+    String quanlydiem(DiemThanhPhanDTO diemThanhPhan, @CookieValue(name = "JSESSIONID") String JSESSIONID,Model model){
+        HttpHeaders headers = new HttpHeaders();
+        headers.add(HttpHeaders.COOKIE,"JSESSIONID="+JSESSIONID);
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        HttpEntity<DiemThanhPhanDTO> requestEntity = new HttpEntity<>(diemThanhPhan, headers);
+        rest.postForEntity("http://localhost:8080/api/quanlydiem",requestEntity, String.class);
         return "redirect:/quanlysinhvien/"+diemThanhPhan.getNhommonhoc();
     }
     @GetMapping("/xoasinhvien")
-    String xoasinhvien(@RequestParam String nhommonhoc, @RequestParam String masv, Model model){
+    String xoasinhvien(@RequestParam String nhommonhoc, @RequestParam String msv, @CookieValue(name = "JSESSIONID") String JSESSIONID,Model model){
+        HttpHeaders headers = new HttpHeaders();
+        headers.add(HttpHeaders.COOKIE,"JSESSIONID="+JSESSIONID);
+        rest.exchange("http://localhost:8080/api/xoasinhvien?nhommonhoc="+nhommonhoc+"&masv="+msv,HttpMethod.GET,new HttpEntity(headers), String.class);
         return "redirect:/quanlysinhvien/"+nhommonhoc;
     }
     @GetMapping("/xuatbangdiem/{nhommonhoc}")
-    public ResponseEntity<Resource> exportUsersToExcel(@PathVariable String nhommonhoc) {
-        return ResponseEntity.status(HttpStatus.OK).body((Resource) new Object());
-        //return adminService.exportDiemThanhPhanToExcel(nhommonhoc);
+    public ResponseEntity<Resource> exportUsersToExcel(@PathVariable String nhommonhoc, @CookieValue(name = "JSESSIONID") String JSESSIONID,Model model){
+        HttpHeaders headers = new HttpHeaders();
+        headers.add(HttpHeaders.COOKIE,"JSESSIONID="+JSESSIONID);
+        return rest.exchange("http://localhost:8080/api/xuatbangdiem/"+nhommonhoc,HttpMethod.GET,new HttpEntity(headers), Resource.class);
     }
     @PostMapping("/uploadExcel")
-    public String uploadExcel(@RequestParam("excelFile") MultipartFile file, @RequestParam("nhommonhoc") String nhommonhoc, Model model) {
-        //return adminService.uploadExcel(file, nhommonhoc, model);
-        return "";
+    public String uploadExcel(@RequestParam("excelFile") MultipartFile file, @RequestParam("nhommonhoc") String nhommonhoc, @CookieValue(name = "JSESSIONID") String JSESSIONID,Model model){
+        HttpHeaders headers = new HttpHeaders();
+        headers.add(HttpHeaders.COOKIE,"JSESSIONID="+JSESSIONID);
+        headers.setContentType(MediaType.MULTIPART_FORM_DATA);
+        LinkedMultiValueMap<String, Object> body = new LinkedMultiValueMap<>();
+        body.add("excelFile", file.getResource());
+        body.add("nhommonhoc", nhommonhoc);
+        HttpEntity<LinkedMultiValueMap<String, Object>> requestEntity = new HttpEntity<>(body, headers);
+        String response = rest.postForEntity("http://localhost:8080/api/uploadExcel",requestEntity, String.class).getBody();
+        JSONObject resJson = new JSONObject(response);
+        if(!resJson.getString("status").equals("OK")){
+            model.addAttribute("error",true);
+            model.addAttribute("errMess",resJson.getString("data"));
+            model.addAttribute("nhommonhoc",nhommonhoc);
+            return "/admin/themsinhvien";
+        }else{
+            return "redirect:/quanlysinhvien/"+nhommonhoc;
+        }
     }
 }

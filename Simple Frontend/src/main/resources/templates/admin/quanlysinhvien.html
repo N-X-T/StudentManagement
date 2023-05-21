@@ -212,7 +212,7 @@ th {
 </div>
 <div class="ClassName" th:text="${'Nhóm lớp học: '+nhommonhoc}"></div>
 <div class="ClassDecriptsion">
-    Sĩ số: <b th:text="${users.size()+' sinh viên'}"></b><br><br>
+    Sĩ số: <b th:text="${users.toList().size()+' sinh viên'}"></b><br><br>
     <div style="display: flex; flex-wrap: wrap;">
         <form th:action="${'/themsinhvien/'+nhommonhoc}" method="POST" style="flex-basis: 10%;">
             <button type="submit">Thêm sinh viên</button>
@@ -241,12 +241,12 @@ th {
         <table>
             <tbody>
             <th:block th:each="data,state : ${users}">
-                <tr class="row100 body" th:attr="onclick=${'location.pathname=''/quanlydiem/'+nhommonhoc+'/'+data.getCustomUserDetail().getMasv()+''';'}">
+                <tr class="row100 body" th:attr="onclick=${'location.pathname=''/quanlydiem/'+nhommonhoc+'/'+data.getString('masv')+''';'}">
                     <td class="cell100 column1" th:text="${state.count}"></td>
-                    <td class="cell100 column2" th:text="${data.getCustomUserDetail().getHoten()}"></td>
-                    <td class="cell100 column3" th:text="${data.getCustomUserDetail().getMasv()}"></td>
-                    <td class="cell100 column4" th:text="${data.getCustomUserDetail().getEmail()}"></td>
-                    <td class="cell100 column5" th:text="${data.getCustomUserDetail().isGioitinh()}?'Nam':'Nữ'"></td>
+                    <td class="cell100 column2" th:text="${data.getString('hoten')}"></td>
+                    <td class="cell100 column3" th:text="${data.getString('masv')}"></td>
+                    <td class="cell100 column4" th:text="${data.getString('email')}"></td>
+                    <td class="cell100 column5" th:text="${data.getBoolean('gioitinh')}?'Nam':'Nữ'"></td>
                 </tr>
             </th:block>
             </tbody>

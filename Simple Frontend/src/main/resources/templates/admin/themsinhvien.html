@@ -248,7 +248,7 @@ th {
     <button type="submit">Thêm</button>
   </form>
   <div th:if="${error}">
-    <h3 style="color:black;">Sinh viên không tồn tại, vui lòng nhập lại mã sinh viên!</h3>
+    <h3 style="color:black;" th:text="${errMess}"></h3>
   </div>
 </div>
 <script>

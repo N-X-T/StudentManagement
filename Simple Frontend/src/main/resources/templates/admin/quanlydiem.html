@@ -230,8 +230,8 @@ th {
         <li><a href="/logout">Đăng xuất</a></li>
     </ul>
 </div>
-<div class="ClassName" th:text="${'Điểm thành phần lớp: '+diemthanhphan.getMonhoc().getTenmonhoc()+' - Nhóm: '+diemthanhphan.nhommonhoc}"></div>
-<div class="ListDecriptsion" th:text="${'Sinh viên: '+sinhvien.hoten+'-'+sinhvien.masv}"></div>
+<div class="ClassName" th:text="${'Điểm thành phần nhóm: '+nhommonhoc}"></div>
+<div class="ListDecriptsion" th:text="${'Sinh viên: '+hoten+'-'+msv}"></div>
 <div class="table100 ver2 m-b-110">
     <div class="table100-head">
         <table>
@@ -250,51 +250,51 @@ th {
                 <tr class="row100 body">
                     <td class="cell100 column1">1</td>
                     <td class="cell100 column2">Điểm chuyên cần</td>
-                    <td class="cell100 column3"><input id="diem_chuyencan" type="number" step=0.1 placeholder="Điểm chuyên cần" th:value="${diemthanhphan.diem_chuyencan}"></td>
+                    <td class="cell100 column3"><input id="diem_chuyencan" type="number" step=0.1 placeholder="Điểm chuyên cần" th:value="${diem_chuyencan}"></td>
                 </tr>
                 <tr class="row100 body">
                     <td class="cell100 column1">2</td>
                     <td class="cell100 column2">Điểm bài tập</td>
-                    <td class="cell100 column3"><input id="diem_bai_tap" type="number" step=0.1 placeholder="Điểm bài tập" th:value="${diemthanhphan.diem_bai_tap}"></td>
+                    <td class="cell100 column3"><input id="diem_bai_tap" type="number" step=0.1 placeholder="Điểm bài tập" th:value="${diem_bai_tap}"></td>
                 </tr>
                 <tr class="row100 body">
                     <td class="cell100 column1">3</td>
                     <td class="cell100 column2">Điểm kiểm tra trên lớp</td>
-                    <td class="cell100 column3"><input id="diem_trung_binh_kiem_tra_tren_lop" type="number" step=0.1 placeholder="Điểm kiểm tra trên lớp" th:value="${diemthanhphan.diem_trung_binh_kiem_tra_tren_lop}"></td>
+                    <td class="cell100 column3"><input id="diem_trung_binh_kiem_tra_tren_lop" type="number" step=0.1 placeholder="Điểm kiểm tra trên lớp" th:value="${diem_trung_binh_kiem_tra_tren_lop}"></td>
                 </tr>
                 <tr class="row100 body">
                     <td class="cell100 column1">4</td>
                     <td class="cell100 column2">Điểm thực hành</td>
-                    <td class="cell100 column3"><input id="diem_thi_nghiem" type="number" step=0.1 placeholder="Điểm thực hành" th:value="${diemthanhphan.diem_thi_nghiem}"></td>
+                    <td class="cell100 column3"><input id="diem_thi_nghiem" type="number" step=0.1 placeholder="Điểm thực hành" th:value="${diem_thi_nghiem}"></td>
                 </tr>
                 <tr class="row100 body">
                     <td class="cell100 column1">5</td>
                     <td class="cell100 column2">Điểm cuối kỳ</td>
-                    <td class="cell100 column3"><input id="diem_cuoi_ky" type="number" step=0.1 placeholder="Điểm cuối kỳ" th:value="${diemthanhphan.diem_cuoi_ky}"></td>
+                    <td class="cell100 column3"><input id="diem_cuoi_ky" type="number" step=0.1 placeholder="Điểm cuối kỳ" th:value="${diem_cuoi_ky}"></td>
                 </tr>
                 <tr class="row100 body">
                     <td class="cell100 column1">6</td>
                     <td class="cell100 column2">Điểm tổng kết (hệ 10)</td>
-                    <td class="cell100 column3"><input id="diem_tong_ket" type="number" step=0.1 placeholder="Điểm tổng kết" th:value="${diemthanhphan.diem_tong_ket}"></td>
+                    <td class="cell100 column3"><input id="diem_tong_ket" type="number" step=0.1 placeholder="Điểm tổng kết" th:value="${diem_tong_ket}"></td>
                 </tr>
             </tbody>
         </table>
     </div>
     <div style="text-align:center;">
         <form action="/quanlydiem" method="POST" modelAttribute="CapNhatDiem" style="display: inline-block;">
-            <input type="hidden" name="nhommonhoc" th:value="${diemthanhphan.nhommonhoc}">
-            <input type="hidden" name="masv" th:value="${sinhvien.masv}">
-            <input id="diem_chuyencanForm" type="hidden" name="diem_chuyencan" th:value="${diemthanhphan.diem_chuyencan}">
-            <input id="diem_bai_tapForm" type="hidden" name="diem_bai_tap" th:value="${diemthanhphan.diem_bai_tap}">
-            <input id="diem_trung_binh_kiem_tra_tren_lopForm" type="hidden" name="diem_trung_binh_kiem_tra_tren_lop" th:value="${diemthanhphan.diem_trung_binh_kiem_tra_tren_lop}">
-            <input id="diem_thi_nghiemForm" type="hidden" name="diem_thi_nghiem" th:value="${diemthanhphan.diem_thi_nghiem}">
-            <input id="diem_cuoi_kyForm" type="hidden" name="diem_cuoi_ky" th:value="${diemthanhphan.diem_cuoi_ky}">
-            <input id="diem_tong_ketForm" type="hidden" name="diem_tong_ket" th:value="${diemthanhphan.diem_tong_ket}">
+            <input type="hidden" name="nhommonhoc" th:value="${nhommonhoc}">
+            <input type="hidden" name="msv" th:value="${msv}">
+            <input id="diem_chuyencanForm" type="hidden" name="diem_chuyencan" th:value="${diem_chuyencan}">
+            <input id="diem_bai_tapForm" type="hidden" name="diem_bai_tap" th:value="${diem_bai_tap}">
+            <input id="diem_trung_binh_kiem_tra_tren_lopForm" type="hidden" name="diem_trung_binh_kiem_tra_tren_lop" th:value="${diem_trung_binh_kiem_tra_tren_lop}">
+            <input id="diem_thi_nghiemForm" type="hidden" name="diem_thi_nghiem" th:value="${diem_thi_nghiem}">
+            <input id="diem_cuoi_kyForm" type="hidden" name="diem_cuoi_ky" th:value="${diem_cuoi_ky}">
+            <input id="diem_tong_ketForm" type="hidden" name="diem_tong_ket" th:value="${diem_tong_ket}">
             <button type="submit">Cập nhật</button>
         </form>
         <form onsubmit="return confirm('Bạn có chắc chắn xoá sinh viên này?');" action="/xoasinhvien" method="GET" style="display: inline-block;">
-            <input type="hidden" name="nhommonhoc" th:value="${diemthanhphan.nhommonhoc}">
-            <input type="hidden" name="masv" th:value="${sinhvien.masv}">
+            <input type="hidden" name="nhommonhoc" th:value="${nhommonhoc}">
+            <input type="hidden" name="msv" th:value="${msv}">
             <button type="submit">Xoá sinh viên</button>
         </form>
     </div>

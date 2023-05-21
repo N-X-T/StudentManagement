@@ -73,10 +73,10 @@ body{
         <table>
             <tbody>
             <th:block th:each="data,state : ${nhommonhoc}">
-                <tr class="row100 body" th:attr="onclick=${'location.pathname=''/quanlysinhvien/'+data[0]+''';'}">
+                <tr class="row100 body" th:attr="onclick=${'location.pathname=''/quanlysinhvien/'+data.getString('nhommonhoc')+''';'}">
                     <td class="cell100 column1" th:text="${state.count}"></td>
-                    <td class="cell100 column2" th:text="${monHocRepository.findById(data[1]).get().getTenmonhoc()}"></td>
-                    <td class="cell100 column3" th:text="${data[0]}"></td>
+                    <td class="cell100 column2" th:text="${data.getString('tenmonhoc')}"></td>
+                    <td class="cell100 column3" th:text="${data.getString('nhommonhoc')}"></td>
                 </tr>
             </th:block>
             </tbody>

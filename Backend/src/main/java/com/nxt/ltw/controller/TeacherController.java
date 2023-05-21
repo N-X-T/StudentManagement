@@ -37,7 +37,7 @@ public class TeacherController {
         return adminService.handleQuanlydiemForm(nhommonhoc,msv,model,auth);
     }
     @PostMapping("/api/quanlydiem")
-    ResponseEntity<ResponseObject> quanlydiem(@ModelAttribute("CapNhatDiem") DiemThanhPhanDTO diemThanhPhan, Model model, Authentication auth){
+    ResponseEntity<ResponseObject> quanlydiem(@RequestBody DiemThanhPhanDTO diemThanhPhan, Model model, Authentication auth){
         return adminService.handleQuanlydiem(diemThanhPhan,model,auth);
     }
     @GetMapping("/api/xoasinhvien")

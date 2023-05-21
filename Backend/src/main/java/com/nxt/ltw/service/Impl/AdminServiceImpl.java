@@ -65,11 +65,11 @@ public class AdminServiceImpl{
                 }
         ).collect(Collectors.toList());
 
-        HashMap<String,Object> data = new HashMap<>();
-        data.put("nhommonhoc",nhommonhoc);
-        data.put("users",userDetailDTOS);
+        //HashMap<String,Object> data = new HashMap<>();
+        //data.put("nhommonhoc",nhommonhoc);
+        //data.put("users",userDetailDTOS);
 
-        return ResponseEntity.status(HttpStatus.OK).body(new ResponseObject("OK","Query Quanlysinhvien successfully",data));
+        return ResponseEntity.status(HttpStatus.OK).body(new ResponseObject("OK","Query Quanlysinhvien successfully",userDetailDTOS));
     }
     /*public ResponseEntity<ResponseObject> handleThemsinhvienForm(String nhommonhoc, Model model, Authentication auth){
         return ResponseEntity.status(HttpStatus.OK).body(new ResponseObject("OK","Query Quanlysinhvien successfully",nhommonhoc));
@@ -81,7 +81,7 @@ public class AdminServiceImpl{
             List<DiemThanhPhan> nhomhientai= diemThanhPhanRepository.findByNhommonhoc(nhommonhoc);
             for(DiemThanhPhan d:nhomhientai){
                 if(d.getCustomUserDetail().getId()==sinhvien.getId())
-                    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ResponseObject("Fail","Students already exist in the classroom",""));
+                    return ResponseEntity.status(HttpStatus.OK).body(new ResponseObject("Fail","Students already exist in the classroom",""));
             }
 
             DiemThanhPhan diemThanhPhan=new DiemThanhPhan();
@@ -113,14 +113,7 @@ public class AdminServiceImpl{
             diemThanhPhanRepository.save(diemThanhPhan);
             return ResponseEntity.status(HttpStatus.OK).body(new ResponseObject("OK","Add student successfully",""));
         } else {
-            HashMap<String,Object> data = new HashMap<>();
-            data.put("nhommonhoc",nhommonhoc);
-            data.put("msv",msv);
-            return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(new ResponseObject("Fail","Student not found!",data));
-            //model.addAttribute("nhommonhoc",nhommonhoc);
-            //model.addAttribute("error",true);
-            //model.addAttribute("msv",msv);
-            //return "/admin/themsinhvien";
+            return ResponseEntity.status(HttpStatus.OK).body(new ResponseObject("Fail","Student not found!",""));
         }
     }
     public ResponseEntity<ResponseObject> handleQuanlydiemForm(String nhommonhoc, String msv, Model model, Authentication auth){
@@ -144,7 +137,7 @@ public class AdminServiceImpl{
     }
     public ResponseEntity<ResponseObject> handleQuanlydiem(DiemThanhPhanDTO diemThanhPhanDTO, Model model, Authentication auth){
         try {
-            CustomUserDetail current = userRepository.findByMasv(diemThanhPhanDTO.getMasv());
+            CustomUserDetail current = userRepository.findByMasv(diemThanhPhanDTO.getMsv());
             DiemThanhPhan diemThanhPhan = diemThanhPhanRepository.capnhatDiem(diemThanhPhanDTO.getNhommonhoc(), current.getId());
             diemThanhPhan.setDiem_chuyencan(diemThanhPhanDTO.getDiem_chuyencan());
             diemThanhPhan.setDiem_bai_tap(diemThanhPhanDTO.getDiem_bai_tap());
@@ -284,9 +277,9 @@ public class AdminServiceImpl{
             }
             workbook.close();
             inputStream.close();
-            return ResponseEntity.status(HttpStatus.OK).body(new ResponseObject("OK", "Add Student Successfully", nhommonhoc));
+            return ResponseEntity.status(HttpStatus.OK).body(new ResponseObject("OK", "Add Student Successfully", ""));
         }catch(Exception ex){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ResponseObject("OK", "Add Student Successfully", nhommonhoc));
+            return ResponseEntity.status(HttpStatus.OK).body(new ResponseObject("Fail", "Add Student Fail", ex.getMessage()));
         }
     }
 }
